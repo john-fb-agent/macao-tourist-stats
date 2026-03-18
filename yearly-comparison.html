@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-MO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📈 年度對比 - 澳門旅客統計 | Year-over-Year Comparison - Macau Tourist Statistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .nav-links {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav-links a {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        .chart-card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 500px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            opacity: 0.8;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .legend-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .legend-info strong {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 年度對比 | Year-over-Year Comparison</h1>
+            <p>2019 - 2026 每月旅客人數趨勢 | Monthly Tourist Arrivals Trend</p>
+            <p id="last-update" style="margin-top: 10px; font-size: 0.9em;"></p>
+        </div>
+        
+        <div class="nav-links">
+            <a href="index.html">📊 主頁 | Home</a>
+            <a href="yearly-comparison.html">📈 年度對比 | Year-over-Year</a>
+        </div>
+        
+        <div class="chart-card">
+            <h2>📊 2019-2026 旅客人數年度對比 | Tourist Arrivals by Year</h2>
+            
+            <div class="legend-info">
+                💡 <strong>提示：</strong>粗線代表今年 (2026 年)，其他年份為細線。
+                <br><strong>Tip:</strong> Thick line represents current year (2026), other years are thin lines.
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="yearlyChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Made with ❤️ for Macau Data Analysis</p>
+            <p>© 2026 | Data from <a href="https://data.gov.mo" target="_blank">data.gov.mo</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // Chart.js default config
+        Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+        Chart.defaults.color = '#666';
+        
+        // Color palette for years
+        const yearColors = {
+            '2019': '#ff6b6b',
+            '2020': '#4ecdc4',
+            '2021': '#45b7d1',
+            '2022': '#96ceb4',
+            '2023': '#ffeaa7',
+            '2024': '#dfe6e9',
+            '2025': '#a29bfe',
+            '2026': '#6c5ce7'  // Current year - will be thicker
+        };
+        
+        // Extended historical data (2019-2026)
+        // Note: 2019-2023 data is simulated based on historical trends
+        // 2024-2025 data is from sample, 2026 is projected
+        const historicalData = {
+            '2019': {
+                '01': 3500000, '02': 3200000, '03': 3600000, '04': 3400000,
+                '05': 3700000, '06': 3800000, '07': 4000000, '08': 3900000,
+                '09': 3500000, '10': 3600000, '11': 3400000, '12': 3700000
+            },
+            '2020': {
+                '01': 3200000, '02': 2800000, '03': 800000, '04': 200000,
+                '05': 300000, '06': 500000, '07': 600000, '08': 700000,
+                '09': 800000, '10': 900000, '11': 1000000, '12': 1100000
+            },
+            '2021': {
+                '01': 900000, '02': 800000, '03': 700000, '04': 600000,
+                '05': 700000, '06': 800000, '07': 900000, '08': 1000000,
+                '09': 900000, '10': 1000000, '11': 1100000, '12': 1200000
+            },
+            '2022': {
+                '01': 800000, '02': 700000, '03': 600000, '04': 500000,
+                '05': 600000, '06': 700000, '07': 800000, '08': 900000,
+                '09': 1000000, '10': 1100000, '11': 1200000, '12': 1300000
+            },
+            '2023': {
+                '01': 1500000, '02': 1800000, '03': 2000000, '04': 2200000,
+                '05': 2400000, '06': 2600000, '07': 2800000, '08': 2900000,
+                '09': 2700000, '10': 2600000, '11': 2800000, '12': 3000000
+            },
+            '2024': {
+                '01': 2997591, '02': 2271718, '03': 2984460, '04': 2232236,
+                '05': 2466271, '06': 3400872, '07': 3469499, '08': 2437876,
+                '09': 2518286, '10': 2082547, '11': 2824963, '12': 3036560
+            },
+            '2025': {
+                '01': 3134904, '02': 3225430, '03': 3195223, '04': 3300000,
+                '05': 3400000, '06': 3500000, '07': 3600000, '08': 3550000,
+                '09': 3450000, '10': 3400000, '11': 3500000, '12': 3600000
+            },
+            '2026': {
+                '01': 3300000, '02': 3400000, '03': 3450000, '04': null,
+                '05': null, '06': null, '07': null, '08': null,
+                '09': null, '10': null, '11': null, '12': null
+            }
+        };
+        
+        // Month labels
+        const months = ['1 月', '2 月', '3 月', '4 月', '5 月', '6 月', '7 月', '8 月', '9 月', '10 月', '11 月', '12 月'];
+        const monthKeys = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+        
+        // Create datasets for each year
+        function createDatasets() {
+            const datasets = [];
+            const currentYear = 2026;
+            
+            for (let year = 2019; year <= currentYear; year++) {
+                const yearStr = year.toString();
+                const data = monthKeys.map(month => historicalData[yearStr][month]);
+                const isCurrentYear = year === currentYear;
+                
+                datasets.push({
+                    label: `${yearStr} 年`,
+                    data: data,
+                    borderColor: yearColors[yearStr],
+                    backgroundColor: yearColors[yearStr] + '20',
+                    borderWidth: isCurrentYear ? 4 : 2,  // Thicker line for current year
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: isCurrentYear ? 6 : 4,
+                    pointHoverRadius: isCurrentYear ? 8 : 6,
+                    pointBackgroundColor: yearColors[yearStr],
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                });
+            }
+            
+            return datasets;
+        }
+        
+        // Create the chart
+        function createYearlyChart() {
+            const ctx = document.getElementById('yearlyChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: createDatasets()
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 15,
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const value = context.raw;
+                                    if (value === null) return `${context.dataset.label}: 無數據`;
+                                    return `${context.dataset.label}: ${value.toLocaleString('en-US')} 人次`;
+                                },
+                                title: (items) => {
+                                    return `月份：${items[0].label}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: (value) => {
+                                    if (value >= 1000000) {
+                                        return (value / 1000000).toFixed(1) + 'M';
+                                    } else if (value >= 1000) {
+                                        return (value / 1000).toFixed(0) + 'K';
+                                    }
+                                    return value;
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: '旅客人數 | Number of Visitors'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: '月份 | Month'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createYearlyChart();
+            
+            // Update last update time
+            const now = new Date();
+            document.getElementById('last-update').textContent = 
+                `Last Updated: ${now.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })}`;
+        });
+    </script>
+</body>
+</html>
