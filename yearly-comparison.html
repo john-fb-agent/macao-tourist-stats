@@ -144,6 +144,19 @@
             </div>
         </div>
         
+        <div class="chart-card">
+            <h2>📊 2002-2026 每月趨勢對比 | Monthly Trend Comparison (2002-2026)</h2>
+            
+            <div class="legend-info">
+                💡 <strong>提示：</strong>每年一條線，2026 年（今年）以粗線顯示。滾動圖例可查看完整年份列表。
+                <br><strong>Tip:</strong> One line per year, 2026 (current year) shown with thick line. Scroll legend for full list.
+            </div>
+            
+            <div class="chart-container" style="height: 600px;">
+                <canvas id="monthlyLongTermChart"></canvas>
+            </div>
+        </div>
+        
         <div class="footer">
             <p>Made with ❤️ for Macau Data Analysis</p>
             <p>© 2026 | Data from <a href="https://data.gov.mo" target="_blank">data.gov.mo</a></p>
@@ -508,10 +521,126 @@
             });
         }
         
+        // Create monthly comparison chart (2002-2026) - one line per year
+        function createMonthlyLongTermChart() {
+            const ctx = document.getElementById('monthlyLongTermChart').getContext('2d');
+            
+            const datasets = [];
+            const currentYear = 2026;
+            const startYear = 2002;
+            
+            // Generate color palette for 25 years
+            function getYearColor(year, totalYears) {
+                const index = year - startYear;
+                const hue = (index / totalYears) * 300; // Spread across color spectrum
+                return `hsl(${hue}, 70%, 50%)`;
+            }
+            
+            const totalYears = currentYear - startYear + 1;
+            
+            for (let year = startYear; year <= currentYear; year++) {
+                const yearStr = year.toString();
+                const data = historicalData[yearStr];
+                
+                if (data) {
+                    const yearData = monthKeys.map(month => {
+                        const val = data[month];
+                        return val !== null ? val : null;
+                    });
+                    
+                    const isCurrentYear = year === currentYear;
+                    
+                    datasets.push({
+                        label: `${yearStr} 年`,
+                        data: yearData,
+                        borderColor: getYearColor(year, totalYears),
+                        backgroundColor: getYearColor(year, totalYears) + '20',
+                        borderWidth: isCurrentYear ? 4 : 1.5,  // Thicker line for current year
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: isCurrentYear ? 5 : 2,
+                        pointHoverRadius: isCurrentYear ? 7 : 4,
+                        pointBackgroundColor: getYearColor(year, totalYears),
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 1,
+                        hidden: year < 2015 && year !== currentYear // Hide older years by default to reduce clutter
+                    });
+                }
+            }
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 10,
+                                font: {
+                                    size: 10
+                                },
+                                boxWidth: 12,
+                                boxHeight: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const value = context.raw;
+                                    if (value === null) return `${context.dataset.label}: 無數據`;
+                                    return `${context.dataset.label}: ${value.toLocaleString('en-US')} 人次`;
+                                },
+                                title: (items) => {
+                                    return `月份：${items[0].label}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: (value) => {
+                                    if (value >= 1000000) {
+                                        return (value / 1000000).toFixed(1) + 'M';
+                                    } else if (value >= 1000) {
+                                        return (value / 1000).toFixed(0) + 'K';
+                                    }
+                                    return value;
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: '旅客人數 | Number of Visitors'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: '月份 | Month'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             createYearlyChart();
             createLongTermChart();
+            createMonthlyLongTermChart();
             
             // Update last update time
             const now = new Date();
