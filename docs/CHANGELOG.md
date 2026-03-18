@@ -20,13 +20,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### ✨ Added
 - **Yearly comparison page** (`yearly-comparison.html`)
-- **Multi-year line chart** (2019-2026) with one line per year
-- **Current year highlight** (2026) with thicker line (4px vs 2px)
-- **Long-term trend chart** (2002-2026) showing yearly totals
-- Historical data from 2002-2018 (estimated from Macau tourism statistics)
-- Navigation between main dashboard and yearly comparison
-- Hover tooltips showing exact visitor counts
-- Color-coded legend for each year
+- **Three chart types** on comparison page:
+  1. **Multi-year monthly chart** (2019-2026) - one line per year
+  2. **Long-term trend chart** (2002-2026) - yearly totals with area fill
+  3. **Full monthly comparison** (2002-2026) - all years as separate lines
+- **Current year highlight** (2026) with thicker line (4px vs 1.5-2px)
+- **Historical data** from 2002-2018 (estimated from Macau tourism statistics)
+- **Navigation** between main dashboard and yearly comparison
+- **Hover tooltips** showing exact visitor counts
+- **Color-coded legends** for each year
+- **Interactive legend** - click to toggle year visibility
+- **Smart defaults** - older years (2002-2014) hidden by default to reduce clutter
 
 ### 📊 Data Coverage
 - 2002-2018: Historical estimates (based on Macau Government Tourism Office data)
