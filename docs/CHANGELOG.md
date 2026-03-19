@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.1] - 2026-03-19
+
+### ✨ Added
+- **Live data update** from Macau DSEC API
+- Fresh tourist arrival data (2008-2026)
+
+### 📊 Data Updates
+- Updated `data/latest_data.json` with real API response
+- Updated `data/processed_data.json` with converted format
+- Total records: 200+ monthly data points
+- Date range: 2008-2026 (monthly visitor arrivals)
+
+---
+
 ## [2.2.0] - 2026-03-19
 
 ### ✨ Added
