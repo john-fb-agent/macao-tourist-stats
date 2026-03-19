@@ -271,21 +271,26 @@
             return { labels, total, mainland, hk, taiwan, other };
         }
         
-        // Calculate statistics
+        // Calculate statistics (DSEC API format)
         function calculateStats(data) {
+            const values = data.values || [];
+            const visitorCounts = values.map(r => parseInt(r['value'] || 0));
+            
             const sum = arr => arr.reduce((a, b) => a + b, 0);
-            const avg = arr => sum(arr) / arr.length;
-            const max = arr => Math.max(...arr);
-            const min = arr => Math.min(...arr);
+            const avg = arr => arr.length ? sum(arr) / arr.length : 0;
+            const max = arr => arr.length ? Math.max(...arr) : 0;
+            const min = arr => arr.length ? Math.min(...arr) : 0;
             
             return {
                 total: {
-                    sum: sum(data.total),
-                    avg: avg(data.total),
-                    max: max(data.total),
-                    min: min(data.total)
+                    sum: sum(visitorCounts),
+                    avg: avg(visitorCounts),
+                    max: max(visitorCounts),
+                    min: min(visitorCounts)
                 },
-                records: data.labels.length
+                records: values.length,
+                minYear: data.minYear || '2008',
+                maxYear: data.maxYear || '2026'
             };
         }
         
@@ -294,7 +299,7 @@
             return num.toLocaleString('en-US');
         }
         
-        // Display statistics
+        // Display statistics (DSEC API format)
         function displayStats(stats) {
             const statsGrid = document.getElementById('stats-grid');
             statsGrid.innerHTML = `
@@ -314,9 +319,9 @@
                     <div class="sub">單月最低記錄</div>
                 </div>
                 <div class="stat-card">
-                    <h3>📅 數據筆數 | Records</h3>
-                    <div class="value">${stats.records}</div>
-                    <div class="sub">個月 | months</div>
+                    <h3>📅 數據範圍 | Period</h3>
+                    <div class="value">${stats.minYear} - ${stats.maxYear}</div>
+                    <div class="sub">${stats.records} 個月 | months</div>
                 </div>
             `;
         }
