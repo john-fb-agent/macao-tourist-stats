@@ -60,6 +60,7 @@
     </div>
     
     <script>
+        const VERSION = 'v1.2';  // Version number
         const colors = { 
             primary: '#667eea', 
             secondary: '#764ba2',
@@ -144,31 +145,48 @@
                 debug('Sample value: ' + values[0].value);
             }
             
-            // Group data by year
+            // Group data by year - parse periodString like "2008 年 1 月"
             const yearlyData = {};
             let matchCount = 0;
+            let parseErrorCount = 0;
+            
+            // Show first 5 periodStrings to debug
+            debug('First 5 periodStrings:');
+            for (let i = 0; i < Math.min(5, values.length); i++) {
+                debug('  [' + i + '] "' + values[i].periodString + '"');
+            }
+            
             values.forEach(v => {
                 const periodStr = v.periodString || '';
-                // Try different regex patterns (with and without space)
-                let match = periodStr.match(/(\d+) 年 (\d+) 月/);  // With space
-                if (!match) match = periodStr.match(/(\d+) 年 (\d+) 月/);  // Without space
-                if (!match) match = periodStr.match(/(\d{4})-(\d{2})/);
-                if (!match) match = periodStr.match(/Year (\d+), Month (\d+)/);
                 
-                if (match) {
+                // Manual parsing: "2008 年 1 月" -> year=2008, month=1
+                const yearEnd = periodStr.indexOf('年');
+                const monthEnd = periodStr.indexOf('月');
+                
+                if (yearEnd > 0 && monthEnd > yearEnd) {
                     matchCount++;
-                    const year = match[1];
-                    const month = parseInt(match[2]);
+                    const year = periodStr.substring(0, yearEnd);
+                    const month = parseInt(periodStr.substring(yearEnd + 1, monthEnd));
                     const visitorCount = parseInt(v.value);
                     
                     if (!yearlyData[year]) {
                         yearlyData[year] = new Array(12).fill(null);
                     }
-                    yearlyData[year][month - 1] = visitorCount;
+                    if (month >= 1 && month <= 12) {
+                        yearlyData[year][month - 1] = visitorCount;
+                    } else {
+                        debug('⚠️ Invalid month ' + month + ' in "' + periodStr + '"');
+                    }
+                } else {
+                    parseErrorCount++;
+                    if (parseErrorCount <= 3) {
+                        debug('⚠️ Parse failed for: "' + periodStr + '"');
+                    }
                 }
             });
             
             debug('Matched: ' + matchCount + ' records');
+            debug('Parse errors: ' + parseErrorCount);
             debug('Years found: ' + Object.keys(yearlyData).sort().join(', '));
             debug('2026 data: ' + JSON.stringify(yearlyData['2026']));
             
@@ -255,7 +273,7 @@
         }
         
         async function init() {
-            debug('🚀 Starting monthly-trend.html...\n');
+            debug('🚀 Starting monthly-trend.html ' + VERSION + '...\n');
             
             const data = await loadData();
             debug('Data loaded: ' + (data ? 'YES' : 'NO'));
