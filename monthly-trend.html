@@ -43,10 +43,17 @@
                 <div class="chart-container"><canvas id="monthlyChart"></canvas></div>
             </div>
             
-            <!-- Chart 2: Year-over-Year Monthly Comparison -->
+            <!-- Chart 2: Recent Years Comparison (2019-2026) -->
             <div class="chart-card">
-                <h2>📊 Year-by-Year Monthly Comparison</h2>
-                <p style="color: #666; margin-bottom: 15px;">Each line represents one year. Current year (2026) shown with <strong style="color: #667eea; font-weight: bold;">bold line</strong>.</p>
+                <h2>📊 Recent Years Comparison (2019-2026)</h2>
+                <p style="color: #666; margin-bottom: 15px;">Monthly comparison for recent years only. Current year (2026) shown with <strong style="color: #ff4757; font-weight: bold;">bold red line</strong>.</p>
+                <div class="chart-container" style="height: 500px;"><canvas id="recentYearsChart"></canvas></div>
+            </div>
+            
+            <!-- Chart 3: Year-over-Year Monthly Comparison -->
+            <div class="chart-card">
+                <h2>📈 Year-by-Year Monthly Comparison (All Years)</h2>
+                <p style="color: #666; margin-bottom: 15px;">Each line represents one year. Current year (2026) shown with <strong style="color: #ff4757; font-weight: bold;">bold red line</strong>.</p>
                 <div class="chart-container" style="height: 600px;"><canvas id="yearlyComparisonChart"></canvas></div>
             </div>
         </div>
@@ -58,7 +65,7 @@
     </div>
     
     <script>
-        const VERSION = 'v1.4';  // Debug box removed
+        const VERSION = 'v1.5';  // Added Recent Years (2019-2026) chart
         const colors = { 
             primary: '#667eea', 
             secondary: '#764ba2',
@@ -128,7 +135,126 @@
             });
         }
         
-        // Chart 2: Year-by-year monthly comparison
+        // Chart 2: Recent Years Comparison (2019-2026)
+        function createRecentYearsChart(data) {
+            const ctx = document.getElementById('recentYearsChart').getContext('2d');
+            const values = data.values || [];
+            const currentYear = 2026;
+            const startYear = 2019;
+            
+            // Group data by year
+            const yearlyData = {};
+            
+            values.forEach(v => {
+                const periodStr = v.periodString || '';
+                const yearEnd = periodStr.indexOf('年');
+                const monthEnd = periodStr.indexOf('月');
+                
+                if (yearEnd > 0 && monthEnd > yearEnd) {
+                    const year = periodStr.substring(0, yearEnd);
+                    const yearNum = parseInt(year);
+                    
+                    // Only include 2019 and later
+                    if (yearNum >= startYear) {
+                        const month = parseInt(periodStr.substring(yearEnd + 1, monthEnd));
+                        const visitorCount = parseInt(v.value);
+                        
+                        if (!yearlyData[year]) {
+                            yearlyData[year] = new Array(12).fill(null);
+                        }
+                        if (month >= 1 && month <= 12) {
+                            yearlyData[year][month - 1] = visitorCount;
+                        }
+                    }
+                }
+            });
+            
+            // Create datasets for each year
+            const datasets = [];
+            const years = Object.keys(yearlyData).sort();
+            
+            years.forEach(year => {
+                const yearNum = parseInt(year);
+                const isCurrentYear = yearNum === currentYear;
+                
+                let yearColor;
+                if (isCurrentYear) {
+                    yearColor = '#ff4757';
+                } else if (yearNum >= 2024) {
+                    yearColor = '#4ecdc4';
+                } else if (yearNum >= 2020) {
+                    yearColor = '#667eea';
+                } else {
+                    yearColor = '#999999';
+                }
+                
+                datasets.push({
+                    label: year + '年' + (isCurrentYear ? ' 🔴' : ''),
+                    data: yearlyData[year],
+                    borderColor: yearColor,
+                    backgroundColor: yearColor + '20',
+                    borderWidth: isCurrentYear ? 6 : 2,
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: isCurrentYear ? 8 : 3,
+                    pointHoverRadius: isCurrentYear ? 12 : 6,
+                    pointBackgroundColor: yearColor,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: isCurrentYear ? 3 : 2,
+                    order: isCurrentYear ? 0 : 1
+                });
+            });
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 10,
+                                font: { size: 10 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const value = context.raw;
+                                    if (value === null) return `${context.dataset.label}: 無數據`;
+                                    return `${context.dataset.label}: ${value.toLocaleString('en-US')} 人次`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: '月份 | Month' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => value >= 1000000 ? (value/1000000).toFixed(1) + 'M' : value >= 1000 ? (value/1000).toFixed(0) + 'K' : value
+                            },
+                            title: { display: true, text: '旅客人數 | Visitors' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Chart 3: Year-by-year monthly comparison
         function createYearlyComparisonChart(data) {
             const ctx = document.getElementById('yearlyComparisonChart').getContext('2d');
             const values = data.values || [];
@@ -254,6 +380,7 @@
             document.getElementById('content').style.display = 'block';
             
             createMonthlyChart(data);
+            createRecentYearsChart(data);
             createYearlyComparisonChart(data);
         }
         
