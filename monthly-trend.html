@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-MO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📈 Monthly Trend - Macau Tourist Statistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 30px; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .nav-links { text-align: center; margin-bottom: 30px; }
+        .nav-links a { display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; margin: 5px; border-radius: 8px; text-decoration: none; transition: background 0.3s; }
+        .nav-links a:hover { background: rgba(255,255,255,0.3); }
+        .chart-card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 30px; }
+        .chart-card h2 { color: #333; margin-bottom: 20px; font-size: 1.5em; }
+        .chart-container { position: relative; height: 500px; }
+        .footer { text-align: center; color: white; margin-top: 30px; opacity: 0.8; }
+        .loading { text-align: center; color: white; font-size: 1.5em; padding: 50px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 Monthly Trend</h1>
+            <p>Macau Tourist Arrivals - Monthly Breakdown</p>
+        </div>
+        
+        <div class="nav-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="monthly-trend.html">📈 Monthly Trend</a>
+            <a href="yearly-trend.html">📊 Yearly Trend</a>
+        </div>
+        
+        <div id="loading" class="loading">📊 Loading data...</div>
+        
+        <div id="content" style="display: none;">
+            <div class="chart-card">
+                <h2>📈 Monthly Tourist Arrivals (2008-2026)</h2>
+                <div class="chart-container"><canvas id="monthlyChart"></canvas></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Made with ❤️ for Macau Data Analysis</p>
+            <p>© 2026 | Data from <a href="https://data.gov.mo" target="_blank">data.gov.mo</a></p>
+        </div>
+    </div>
+    
+    <script>
+        const colors = { primary: '#667eea', secondary: '#764ba2' };
+        
+        async function loadData() {
+            try {
+                const response = await fetch('data/data.json');
+                if (!response.ok) throw new Error('Failed to load data');
+                const data = await response.json();
+                return data.value || data;
+            } catch (error) {
+                console.error('Error loading data:', error);
+                return null;
+            }
+        }
+        
+        function createMonthlyChart(data) {
+            const ctx = document.getElementById('monthlyChart').getContext('2d');
+            const values = data.values || [];
+            const labels = values.map(v => v.periodString);
+            const totals = values.map(v => parseInt(v.value));
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Monthly Visitors',
+                        data: totals,
+                        borderColor: colors.primary,
+                        backgroundColor: colors.primary + '20',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        x: { 
+                            ticks: { maxRotation: 45, minRotation: 45 },
+                            title: { display: true, text: 'Month' }
+                        },
+                        y: { 
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => value >= 1000000 ? (value/1000000).toFixed(1) + 'M' : value >= 1000 ? (value/1000).toFixed(0) + 'K' : value
+                            },
+                            title: { display: true, text: 'Visitors' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        async function init() {
+            const data = await loadData();
+            if (!data) {
+                document.getElementById('loading').innerHTML = '❌ Failed to load data';
+                return;
+            }
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+            
+            createMonthlyChart(data);
+        }
+        
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
