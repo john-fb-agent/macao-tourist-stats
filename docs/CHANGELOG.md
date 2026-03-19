@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Real API integration** with Macau DSEC (Statistics and Census Service)
 - **Historical data from 2008-2026** (actual government data, not simulated)
 - Support for DSEC API Gateway endpoint
+- Comprehensive API documentation (docs/API.md)
+- Data workflow documentation (docs/DATA_WORKFLOW.md)
 
 ### 🔧 Changed
 - **API Endpoint**: Changed from `data.gov.mo/api/resource` to `dsec.apigateway.data.gov.mo`
@@ -20,12 +22,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Auth Format**: Corrected to `APPCODE xxx` format
 - **Data Format**: Parse nested JSON response from DSEC API
 - **Data Coverage**: Extended from 15 months to 18+ years (2008-2026)
+- **Update Method**: Changed from automated (GitHub Actions) to manual updates
 
 ### 📊 Data Improvements
 - Real monthly tourist arrivals data
 - Official government statistics
-- Automatic updates via GitHub Actions
+- Manual data updates via `python scripts/fetch_data.py`
 - No more simulated/estimated data
+
+### 🗑️ Removed
+- GitHub Actions workflow automation
+- Automated weekly update schedule
+- Workflow configuration files
 
 ### 🐛 Fixed
 - APPCODE authorization format (now includes "APPCODE " prefix)
