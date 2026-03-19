@@ -149,8 +149,9 @@
             let matchCount = 0;
             values.forEach(v => {
                 const periodStr = v.periodString || '';
-                // Try different regex patterns
-                let match = periodStr.match(/(\d+) 年 (\d+) 月/);
+                // Try different regex patterns (with and without space)
+                let match = periodStr.match(/(\d+) 年 (\d+) 月/);  // With space
+                if (!match) match = periodStr.match(/(\d+) 年 (\d+) 月/);  // Without space
                 if (!match) match = periodStr.match(/(\d{4})-(\d{2})/);
                 if (!match) match = periodStr.match(/Year (\d+), Month (\d+)/);
                 
