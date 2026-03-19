@@ -2,7 +2,6 @@
 
 自動獲取澳門旅客數據並生成統計圖表 | Automatic Macau Tourist Data Fetcher with Interactive Charts
 
-[![Update Statistics](https://github.com/john-fb-agent/macao-tourist-stats/actions/workflows/update-stats.yml/badge.svg)](https://github.com/john-fb-agent/macao-tourist-stats/actions/workflows/update-stats.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![View Dashboard](https://img.shields.io/badge/view-dashboard-blue)](https://john-fb-agent.github.io/macao-tourist-stats/)
 
@@ -16,13 +15,13 @@ This project automatically fetches tourist arrival statistics from Macau Governm
 
 ### ✨ 功能特點 | Features
 
-- 🔄 **自動更新** - GitHub Actions 每週一自動獲取最新數據
 - 📊 **交互式圖表** - 使用 Chart.js 生成可交互的 HTML 圖表
 - 📈 **數據分析** - 自動計算總數、平均值、最高/最低值
 - 🇲🇴 **官方數據** - 直接來自澳門統計暨普查局 (DSEC)
 - 📅 **歷史數據** - 2008 年至今的完整月度數據
 - 🌐 **GitHub Pages** - 可直接在瀏覽器查看儀表板
 - 📱 **響應式設計** - 支援桌面和移動設備
+- 🔄 **手動更新** - 運行 `python scripts/fetch_data.py` 獲取最新數據
 
 ---
 
@@ -46,9 +45,6 @@ This project automatically fetches tourist arrival statistics from Macau Governm
 
 ```
 macao-tourist-stats/
-├── .github/
-│   └── workflows/
-│       └── update-stats.yml      # GitHub Actions 自動化腳本
 ├── scripts/
 │   └── fetch_data.py             # 數據獲取腳本
 ├── data/
@@ -64,7 +60,7 @@ macao-tourist-stats/
 ├── yearly-comparison.html        # 📈 年度對比頁 (Year Comparison)
 ├── requirements.txt              # Python 依賴
 ├── README.md                     # 本文件
-└── WORKFLOW-INSTRUCTIONS.md      # GitHub Actions 設置指南
+└── SETUP.md                      # 設置指南
 ```
 
 ---
@@ -143,33 +139,36 @@ https://john-fb-agent.github.io/macao-tourist-stats/
 
 ---
 
-## ⚙️ GitHub Actions 自動化 | Automation
+## 🔄 手動更新數據 | Manual Data Update
 
-### 觸發條件 | Triggers
+### 本地更新 | Local Update
 
-- **定時**: 每週一 00:00 UTC (週一 08:00 北京/澳門時間)
-- **手動**: 在 Actions 頁面點擊 "Run workflow"
+```bash
+# 克隆倉庫
+git clone https://github.com/john-fb-agent/macao-tourist-stats.git
+cd macao-tourist-stats
 
-### 配置 Secrets | Configure Secrets
+# 安裝依賴
+pip install -r requirements.txt
 
-在 GitHub 倉庫設置中添加：
+# 獲取最新數據
+python scripts/fetch_data.py
 
-1. 進入 **Settings** → **Secrets and variables** → **Actions**
-2. 點擊 **New repository secret**
-3. 添加：
-   - Name: `MACAO_DATA_APPCODE`
-   - Value: 你的 data.gov.mo APPCODE
-
-### 工作流程 | Workflow
-
-```yaml
-name: Update Macau Tourist Statistics
-
-on:
-  schedule:
-    - cron: '0 0 * * 1'  # 每週一
-  workflow_dispatch:      # 手動觸發
+# 提交並推送
+git add data/
+git commit -m "📊 Update tourist statistics $(date +%Y-%m-%d)"
+git push origin main
 ```
+
+### API 認證 | API Authentication
+
+確保已設置環境變數：
+
+```bash
+export MACAO_DATA_APPCODE="your-appcode-here"
+```
+
+或在 `scripts/fetch_data.py` 中直接配置 APPCODE。
 
 ---
 
