@@ -12,7 +12,8 @@ import os
 # API Configuration
 DATASET_ID = "3546225a-2a34-4645-b01e-6752aed03993"
 API_BASE = "https://data.gov.mo/api/resource"
-TOKEN = os.getenv("MACAO_DATA_TOKEN", "sIRGoWa0lxAsX9WRpfhgwYYpQw0P8eTi")
+# Use APPCODE format: "APPCODE xxx" (not "Token xxx")
+APPCODE = os.getenv("MACAO_DATA_APPCODE", "09d43a591fba407fb862412970667de4")
 
 # Output directory
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -27,8 +28,9 @@ def fetch_tourist_data():
         f"https://api.data.gov.mo/document/download/{DATASET_ID}",
     ]
     
+    # Correct format: "APPCODE xxx" (as per data.gov.mo documentation)
     headers = {
-        "Authorization": f"Token {TOKEN}",
+        "Authorization": f"APPCODE {APPCODE}",
         "Accept": "application/json"
     }
     
