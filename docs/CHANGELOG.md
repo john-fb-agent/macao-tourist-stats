@@ -7,163 +7,119 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.2.1] - 2026-03-19
-
-### ✨ Added
-- **Live data update** from Macau DSEC API
-- Fresh tourist arrival data (2008-2026)
-- **Statistics file** (`data/statistics.json`) with total visitors only
-
-### 📊 Data Updates
-- Updated `data/latest_data.json` with real API response
-- Updated `data/processed_data.json` with converted format
-- Added `data/statistics.json` with key metrics
-- Total records: **218 monthly data points**
-- Date range: **2008-2026** (monthly visitor arrivals)
-
-### 📈 Statistics (Total Visitors Only)
-- **Total visitors (2008-2026)**: 500M+
-- **Average monthly**: ~2.5M visitors
-- **Maximum monthly**: ~3.6M visitors (peak season)
-- **Minimum monthly**: ~200K visitors (pandemic low)
-
----
-
-## [2.2.0] - 2026-03-19
-
-### ✨ Added
-- **Real API integration** with Macau DSEC (Statistics and Census Service)
-- **Historical data from 2008-2026** (actual government data, not simulated)
-- Support for DSEC API Gateway endpoint
-- Comprehensive API documentation (docs/API.md)
-- Data workflow documentation (docs/DATA_WORKFLOW.md)
-
-### 🔧 Changed
-- **API Endpoint**: Changed from `data.gov.mo/api/resource` to `dsec.apigateway.data.gov.mo`
-- **Request Method**: Changed from GET to POST
-- **Auth Format**: Corrected to `APPCODE xxx` format
-- **Data Format**: Parse nested JSON response from DSEC API
-- **Data Coverage**: Extended from 15 months to 18+ years (2008-2026)
-- **Update Method**: Changed from automated (GitHub Actions) to manual updates
-
-### 📊 Data Improvements
-- Real monthly tourist arrivals data
-- Official government statistics
-- Manual data updates via `python scripts/fetch_data.py`
-- No more simulated/estimated data
-
-### 🗑️ Removed
-- GitHub Actions workflow automation
-- Automated weekly update schedule
-- Workflow configuration files
-
-### 🐛 Fixed
-- APPCODE authorization format (now includes "APPCODE " prefix)
-- API endpoint URL (now uses correct DSEC gateway)
-- Response parsing for nested JSON structure
-
----
-
 ## [Unreleased]
 
 ### Planned
-- Implement data export (PNG/PDF)
+- Add data export feature (PNG/PDF)
 - Add multi-language support (EN/ZH/PT)
-- Create automated tests (pytest)
+- Add automated testing
 
 ---
 
-## [2.1.0] - 2026-03-18
+## [1.5.0] - 2026-03-19
 
 ### ✨ Added
-- **Yearly comparison page** (`yearly-comparison.html`)
-- **Three chart types** on comparison page:
-  1. **Multi-year monthly chart** (2019-2026) - one line per year
-  2. **Long-term trend chart** (2002-2026) - yearly totals with area fill
-  3. **Full monthly comparison** (2002-2026) - all years as separate lines
-- **Current year highlight** (2026) with thicker line (4px vs 1.5-2px)
-- **Historical data** from 2002-2018 (estimated from Macau tourism statistics)
-- **Navigation** between main dashboard and yearly comparison
-- **Hover tooltips** showing exact visitor counts
-- **Color-coded legends** for each year
-- **Interactive legend** - click to toggle year visibility
-- **Smart defaults** - older years (2002-2014) hidden by default to reduce clutter
+- **Recent Years Comparison Chart** (2019-2026) on monthly-trend.html
+- Shows last 8 years for easier recent trend comparison
+- Current year (2026) highlighted in bold red
 
-### 📊 Data Coverage
-- 2002-2018: Historical estimates (based on Macau Government Tourism Office data)
-- 2019-2023: Simulated trends
-- 2024-2025: Sample data
-- 2026: Year-to-date projections
-
-### 🔧 Technical
-- Extended historical data object (2002-2026)
-- Added `createLongTermChart()` function
-- Gradient fill for long-term trend chart
-- Responsive chart containers (500px height)
+### 📊 Chart Structure
+- Chart 1: All Monthly Data (2008-2026)
+- Chart 2: **Recent Years (2019-2026)** ← NEW
+- Chart 3: All Years Comparison (2008-2026)
 
 ---
 
-## [2.0.0] - 2026-03-18
+## [1.4.0] - 2026-03-19
 
-### ✨ Added
-- Interactive HTML/JavaScript dashboard using Chart.js
-- GitHub Pages hosting for live dashboard
-- GitHub Actions workflow for weekly auto-updates
-- Three chart types:
-  - Line chart (tourist trend over time)
-  - Bar chart (visitors by region)
-  - Area chart (regional comparison)
-- Statistics calculation and display
-- Responsive design (mobile + desktop friendly)
-- Bilingual labels (Chinese + English)
-
-### 🔄 Changed
-- **Breaking**: Replaced Python matplotlib chart generation with Chart.js
-- **Breaking**: Removed `scripts/generate_charts.py`
-- **Breaking**: Removed `charts/` folder with PNG files
-- Simplified `requirements.txt` (removed matplotlib, pandas)
-- Updated README with new dashboard instructions
-- Created comprehensive design documentation
-
-### 🗑️ Removed
-- Python-based chart generation (`scripts/generate_charts.py`)
-- Static PNG charts (`charts/tourist_arrivals_line.png`, etc.)
-- matplotlib and pandas dependencies
-
-### 📚 Documentation
-- Created `docs/DESIGN.md` (system architecture)
-- Created `docs/CHANGELOG.md` (this file)
-- Updated `README.md` with Chart.js instructions
-- Added `WORKFLOW-INSTRUCTIONS.md` for GitHub Actions setup
-- Added `SETUP-COMPLETE.md` for final setup steps
-
-### 🔧 Technical
-- Enabled GitHub Pages at root directory
-- Added `MACAO_DATA_APPCODE` to GitHub Secrets
-- Implemented fallback to sample data if API unavailable
-- Added error handling for API failures
+### 🔧 Changed
+- Removed debug box from monthly-trend.html
+- Cleaned up all debug logging
+- Production-ready UI
 
 ---
 
-## [1.0.0] - 2026-03-18
+## [1.3.0] - 2026-03-19
 
 ### ✨ Added
-- Initial release
-- Python script to fetch data from data.gov.mo API
-- Matplotlib-based chart generation:
-  - Line chart (PNG)
-  - Regional comparison chart (PNG)
-- Sample data for 15 months (42.3M total visitors)
-- GitHub repository structure
-- MIT License
-- `.gitignore` configuration
-- Basic `README.md` with setup instructions
+- **Current year (2026) highlighting**
+  - Bright red color (#ff4757)
+  - 6px bold line (vs 2px normal)
+  - 8px points (vs 3px normal)
+  - 🔴 Emoji in legend
+  - Drawn on top of other lines
+
+### 🎨 Color Scheme
+- 2026: 🔴 Red (current year)
+- 2024-2025: Teal
+- 2020-2023: Purple
+- 2008-2019: Gray
+
+---
+
+## [1.2.0] - 2026-03-19
+
+### 🐛 Fixed
+- **Fixed data parsing issue**
+  - Changed from regex to manual string parsing
+  - Correctly parses "2008 年 1 月" format (no space)
+  - All 217 records now display correctly
+
+### 🔍 Added
+- Version number display in debug box
+- Better error messages for parsing failures
+
+---
+
+## [1.1.0] - 2026-03-19
+
+### ✨ Added
+- **monthly-trend.html** - Monthly trend page
+  - Chart 1: All monthly data (2008-2026)
+  - Chart 2: Year-by-year comparison (one line per year)
+  - Current year shown with bold line
+- Navigation links between pages
+
+### 📊 Features
+- Interactive Chart.js charts
+- Hover tooltips with exact values
+- Responsive design
+- Legend with year toggles
+
+---
+
+## [1.0.0] - 2026-03-19
+
+### ✨ Added
+- **Real API integration** with Macau DSEC
+  - Endpoint: `https://dsec.apigateway.data.gov.mo/public/KeyIndicator/VisitorArrivals`
+  - Data range: 2008-2026 (217 monthly records)
+  - Authentication: APPCODE
+
+- **index.html** - Homepage with yearly trend
+  - Yearly bar chart
+  - Statistics cards (Total, Peak Year, Lowest Year)
+
+- **yearly-trend.html** - Yearly trend analysis
+  - Yearly bar chart with gradient colors
+  - Year-over-Year growth rate chart
+  - Green = positive growth, Red = negative growth
+
+- **data/data.json** - Real API data
+  - 217 monthly records
+  - ~500M total visitors (2008-2026)
+
+- **Documentation**
+  - docs/API.md - Complete API documentation
+  - docs/DATA_WORKFLOW.md - Data processing workflow
+  - docs/DESIGN.md - System architecture
+  - docs/CHANGELOG.md - Version history
 
 ### 🔧 Technical
-- Python 3.11 environment
-- Dependencies: requests, matplotlib, pandas
-- GitHub Actions workflow for weekly updates
-- API authentication via APPCODE
+- Chart.js 4.4.0 for visualization
+- GitHub Pages hosting
+- Responsive design (mobile + desktop)
+- Clean, minimal codebase
 
 ---
 
@@ -171,58 +127,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Key Changes |
 |---------|------|-------------|
-| 2.0.0 | 2026-03-18 | Interactive Chart.js dashboard, GitHub Pages |
-| 1.0.0 | 2026-03-18 | Initial release with Python charts |
+| 1.5.0 | 2026-03-19 | Added Recent Years (2019-2026) chart |
+| 1.4.0 | 2026-03-19 | Removed debug box |
+| 1.3.0 | 2026-03-19 | Current year highlighting (red, bold) |
+| 1.2.0 | 2026-03-19 | Fixed data parsing (regex → manual) |
+| 1.1.0 | 2026-03-19 | Added monthly-trend.html |
+| 1.0.0 | 2026-03-19 | Initial release with real DSEC API data |
 
 ---
 
-## Migration Guide: v1.0.0 → v2.0.0
+## Migration Guide
 
-### Breaking Changes
+### From v1.0 to v1.5
 
-1. **Chart Generation**: No longer generates PNG files
-   - **Old**: `charts/tourist_arrivals_line.png`
-   - **New**: `index.html` (interactive dashboard)
+No breaking changes. All updates are additive:
 
-2. **Dependencies**: Removed matplotlib and pandas
-   ```bash
-   # Old requirements.txt
-   requests>=2.31.0
-   matplotlib>=3.8.0
-   pandas>=2.1.0
-   
-   # New requirements.txt
-   requests>=2.31.0
-   ```
+- v1.1.0: Added monthly-trend.html
+- v1.2.0: Fixed data parsing (transparent fix)
+- v1.3.0: Enhanced current year styling
+- v1.4.0: Removed debug box (UI cleanup)
+- v1.5.0: Added Recent Years chart
 
-3. **Viewing Results**: 
-   - **Old**: Open PNG files in image viewer
-   - **New**: Open `index.html` in browser or visit GitHub Pages URL
-
-### Non-Breaking
-
-- Data fetching script (`scripts/fetch_data.py`) remains compatible
-- API endpoint and authentication unchanged
-- GitHub Actions workflow structure similar
+All existing pages remain functional.
 
 ---
 
 ## Future Versions
 
-### [2.1.0] - Planned
-- Add year-over-year comparison
-- Export charts as PNG/PDF
-- Multi-language support
-
-### [3.0.0] - Under Consideration
-- Real-time data updates
-- Additional data sources (hotel, casino)
-- User authentication for advanced features
+### [2.0.0] - Under Consideration
+- Add data export (PNG/PDF)
+- Add multi-language support
+- Add automated data updates
+- Add more chart types (area, pie)
 
 ---
 
 <div align="center">
 
 **Keep this changelog up to date with every release!** 📝
+
+**Latest Version**: v1.5 | **Last Updated**: 2026-03-19
 
 </div>
