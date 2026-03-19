@@ -36,8 +36,6 @@
         
         <div id="loading" class="loading">📊 Loading data...</div>
         
-        <div id="debug" style="background: #1a1a2e; color: #0f0; padding: 15px; margin: 20px; border-radius: 8px; font-family: monospace; white-space: pre-wrap; display: block;"></div>
-        
         <div id="content" style="display: none;">
             <!-- Chart 1: Overall Monthly Trend -->
             <div class="chart-card">
@@ -60,7 +58,7 @@
     </div>
     
     <script>
-        const VERSION = 'v1.3';  // Version number - Current year highlighted in red
+        const VERSION = 'v1.4';  // Debug box removed
         const colors = { 
             primary: '#667eea', 
             secondary: '#764ba2',
@@ -70,8 +68,8 @@
         const months = ['1 月', '2 月', '3 月', '4 月', '5 月', '6 月', '7 月', '8 月', '9 月', '10 月', '11 月', '12 月'];
         
         function debug(msg) {
-            const d = document.getElementById('debug');
-            if (d) d.textContent += msg + '\n';
+            // Debug logging disabled - uncomment for troubleshooting
+            // console.log(msg);
         }
         
         async function loadData() {
@@ -132,39 +130,19 @@
         
         // Chart 2: Year-by-year monthly comparison
         function createYearlyComparisonChart(data) {
-            debug('\n📊 Creating Year-by-Year chart...');
-            debug('Total records: ' + (data.values?.length || 0));
-            
             const ctx = document.getElementById('yearlyComparisonChart').getContext('2d');
             const values = data.values || [];
             const currentYear = 2026;
             
-            // Show sample data
-            if (values.length > 0) {
-                debug('Sample periodString: "' + values[0].periodString + '"');
-                debug('Sample value: ' + values[0].value);
-            }
-            
             // Group data by year - parse periodString like "2008 年 1 月"
             const yearlyData = {};
-            let matchCount = 0;
-            let parseErrorCount = 0;
-            
-            // Show first 5 periodStrings to debug
-            debug('First 5 periodStrings:');
-            for (let i = 0; i < Math.min(5, values.length); i++) {
-                debug('  [' + i + '] "' + values[i].periodString + '"');
-            }
             
             values.forEach(v => {
                 const periodStr = v.periodString || '';
-                
-                // Manual parsing: "2008 年 1 月" -> year=2008, month=1
                 const yearEnd = periodStr.indexOf('年');
                 const monthEnd = periodStr.indexOf('月');
                 
                 if (yearEnd > 0 && monthEnd > yearEnd) {
-                    matchCount++;
                     const year = periodStr.substring(0, yearEnd);
                     const month = parseInt(periodStr.substring(yearEnd + 1, monthEnd));
                     const visitorCount = parseInt(v.value);
@@ -174,27 +152,13 @@
                     }
                     if (month >= 1 && month <= 12) {
                         yearlyData[year][month - 1] = visitorCount;
-                    } else {
-                        debug('⚠️ Invalid month ' + month + ' in "' + periodStr + '"');
-                    }
-                } else {
-                    parseErrorCount++;
-                    if (parseErrorCount <= 3) {
-                        debug('⚠️ Parse failed for: "' + periodStr + '"');
                     }
                 }
             });
             
-            debug('Matched: ' + matchCount + ' records');
-            debug('Parse errors: ' + parseErrorCount);
-            debug('Years found: ' + Object.keys(yearlyData).sort().join(', '));
-            debug('2026 data: ' + JSON.stringify(yearlyData['2026']));
-            
             // Create datasets for each year
             const datasets = [];
             const years = Object.keys(yearlyData).sort();
-            
-            debug('Creating ' + years.length + ' datasets');
             
             years.forEach(year => {
                 const yearNum = parseInt(year);
@@ -212,26 +176,22 @@
                     yearColor = '#999999';  // Gray for older years
                 }
                 
-                const nonNullCount = yearlyData[year].filter(v => v !== null).length;
-                
                 datasets.push({
                     label: year + '年' + (isCurrentYear ? ' 🔴' : ''),
                     data: yearlyData[year],
                     borderColor: yearColor,
                     backgroundColor: yearColor + '20',
-                    borderWidth: isCurrentYear ? 6 : 2,  // Extra thick for current year
+                    borderWidth: isCurrentYear ? 6 : 2,
                     fill: false,
                     tension: 0.4,
-                    pointRadius: isCurrentYear ? 8 : 3,  // Larger points for current year
+                    pointRadius: isCurrentYear ? 8 : 3,
                     pointHoverRadius: isCurrentYear ? 12 : 6,
                     pointBackgroundColor: yearColor,
                     pointBorderColor: '#fff',
                     pointBorderWidth: isCurrentYear ? 3 : 2,
-                    order: isCurrentYear ? 0 : 1  // Draw current year on top
+                    order: isCurrentYear ? 0 : 1
                 });
             });
-            
-            debug('Creating chart with ' + datasets.length + ' datasets');
             
             new Chart(ctx, {
                 type: 'line',
@@ -283,27 +243,18 @@
         }
         
         async function init() {
-            debug('🚀 Starting monthly-trend.html ' + VERSION + '...\n');
-            
             const data = await loadData();
-            debug('Data loaded: ' + (data ? 'YES' : 'NO'));
             
             if (!data) {
                 document.getElementById('loading').innerHTML = '❌ Failed to load data';
                 return;
             }
             
-            debug('Records: ' + (data.values?.length || 0));
-            debug('First record: ' + JSON.stringify(data.values?.[0]));
-            
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
             
-            debug('\n✅ Creating charts...\n');
             createMonthlyChart(data);
             createYearlyComparisonChart(data);
-            
-            debug('\n✅ Done!');
         }
         
         window.addEventListener('load', init);
