@@ -9,19 +9,18 @@
 
 ## 📋 項目簡介 | Project Overview
 
-本項目自動從澳門政府數據開放平台 (data.gov.mo) 獲取旅客人數統計數據，並生成**交互式可視化圖表**（HTML + JavaScript）。
+本項目自動從澳門統計暨普查局 (DSEC) 獲取入境旅客統計數據，並生成交互式可視化圖表。
 
-This project automatically fetches tourist arrival statistics from Macau Government Data Platform (data.gov.mo) and generates **interactive visualization charts** (HTML + JavaScript).
+This project automatically fetches tourist arrival statistics from Macau DSEC and generates interactive visualization charts using Chart.js.
 
 ### ✨ 功能特點 | Features
 
-- 📊 **交互式圖表** - 使用 Chart.js 生成可交互的 HTML 圖表
-- 📈 **數據分析** - 自動計算總數、平均值、最高/最低值
-- 🇲🇴 **官方數據** - 直接來自澳門統計暨普查局 (DSEC)
-- 📅 **歷史數據** - 2008 年至今的完整月度數據
-- 🌐 **GitHub Pages** - 可直接在瀏覽器查看儀表板
-- 📱 **響應式設計** - 支援桌面和移動設備
-- 🔄 **手動更新** - 運行 `python scripts/fetch_data.py` 獲取最新數據
+- 📊 **真實數據** - 直接來自澳門 DSEC 官方 API (2008-2026)
+- 📈 **三個圖表頁面** - 總覽、近年對比、全年對比
+- 🎨 **交互式視覺化** - Chart.js 動態圖表，支持懸停查看數據
+- 🔴 **當前年份高亮** - 2026 年以紅色粗線顯示
+- 📱 **響應式設計** - 支持桌面和移動設備
+- 🌐 **GitHub Pages 託管** - 直接在瀏覽器訪問
 
 ---
 
@@ -29,15 +28,31 @@ This project automatically fetches tourist arrival statistics from Macau Governm
 
 **澳門統計暨普查局 (DSEC)** | Statistics and Census Service
 
-- **API 端點**: https://dsec.apigateway.data.gov.mo/public/KeyIndicator/VisitorArrivals
-- **數據集**: 入境旅客 | Visitor Arrivals
-- **數據範圍**: 2008 年至今 | 2008 to Present
-- **更新頻率**: 月度 | Monthly
-- **官方網站**:
-  - [DSEC](https://www.dsec.gov.mo)
-  - [data.gov.mo](https://data.gov.mo/Detail?id=3546225a-2a34-4645-b01e-6752aed03993)
+| 項目 | 詳情 |
+|------|------|
+| **API 端點** | https://dsec.apigateway.data.gov.mo/public/KeyIndicator/VisitorArrivals |
+| **數據集** | 入境旅客 | Visitor Arrivals |
+| **數據範圍** | 2008 年 1 月 - 2026 年 (每月) |
+| **更新頻率** | 月度 |
+| **認證方式** | APPCODE |
 
-**API 詳情**: 詳見 [docs/API.md](docs/API.md)
+**官方網站**:
+- [DSEC](https://www.dsec.gov.mo)
+- [data.gov.mo](https://data.gov.mo/Detail?id=3546225a-2a34-4645-b01e-6752aed03993)
+
+---
+
+## 🌐 在線儀表板 | Online Dashboard
+
+**https://john-fb-agent.github.io/macao-tourist-stats/**
+
+### 頁面結構
+
+| 頁面 | 說明 | 圖表 |
+|------|------|------|
+| **[🏠 主頁](index.html)** | 年度趨勢總覽 | 年度柱狀圖 + 統計卡片 |
+| **[📈 月度趨勢](monthly-trend.html)** | 月度數據對比 | 3 個圖表：<br>1. 全期月度趨勢<br>2. 近年對比 (2019-2026) 🔴<br>3. 全年對比 (2008-2026) |
+| **[📊 年度趨勢](yearly-trend.html)** | 年度趨勢分析 | 2 個圖表：<br>1. 年度柱狀圖<br>2. 年增長率圖 |
 
 ---
 
@@ -45,165 +60,33 @@ This project automatically fetches tourist arrival statistics from Macau Governm
 
 ```
 macao-tourist-stats/
-├── scripts/
-│   └── fetch_data.py             # 數據獲取腳本
 ├── data/
-│   ├── latest_data.json          # 最新原始數據
-│   ├── processed_data.json       # 處理後數據
-│   └── statistics.json           # 統計摘要
-├── docs/
-│   ├── API.md                    # API 文檔
-│   ├── DATA_WORKFLOW.md          # 數據處理流程
-│   ├── DESIGN.md                 # 系統設計
-│   └── CHANGELOG.md              # 版本歷史
-├── http/
-│   └── api.http                  # HTTP 請求測試文件 (REST Client)
-├── index.html                    # 📊 主儀表板 (Main Dashboard)
-├── yearly-comparison.html        # 📈 年度對比頁 (Year Comparison)
+│   └── data.json                 # 旅客數據 (217 條記錄)
+├── index.html                    # 🏠 主頁 - 年度趨勢
+├── monthly-trend.html            # 📈 月度趨勢 - 3 個圖表
+├── yearly-trend.html             # 📊 年度趨勢 - 增長率分析
+├── test-simple.html              # 🧪 測試頁面
 ├── requirements.txt              # Python 依賴
 ├── README.md                     # 本文件
-└── .env.example                  # 環境變數範本
+└── docs/
+    ├── API.md                    # API 文檔
+    ├── DATA_WORKFLOW.md          # 數據處理流程
+    ├── DESIGN.md                 # 系統設計
+    └── CHANGELOG.md              # 版本歷史
 ```
 
 ---
 
-## 🚀 快速開始 | Quick Start
+## 🚀 本地運行 | Local Development
 
-### 1. 克隆倉庫 | Clone Repository
+### 1. 克隆倉庫
 
 ```bash
 git clone https://github.com/john-fb-agent/macao-tourist-stats.git
 cd macao-tourist-stats
 ```
 
-### 2. 安裝依賴 | Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. 配置 API 認證 | Configure API Authentication
-
-**方法 1: 環境變數** | Method 1: Environment Variable
-
-```bash
-export MACAO_DATA_APPCODE="your-appcode-here"
-```
-
-**方法 2: 直接修改腳本** | Method 2: Modify Script Directly
-
-編輯 `scripts/fetch_data.py`，將 `APPCODE` 改為你的值。
-
-### 4. 運行腳本 | Run Scripts
-
-```bash
-# 獲取數據
-python scripts/fetch_data.py
-
-# 在瀏覽器打開儀表板
-# Mac/Linux:
-open index.html  # macOS
-xdg-open index.html  # Linux
-
-# Windows:
-start index.html
-```
-
----
-
-## 📊 交互式儀表板 | Interactive Dashboard
-
-### 圖表類型 | Chart Types
-
-1. **📈 旅客趨勢圖** | Tourist Arrivals Trend Line Chart
-   - 顯示每月總旅客人數變化
-   - 可交互查看具體數值
-
-2. **📊 區域分佈圖** | Visitors by Region Bar Chart
-   - 對比不同地區旅客總數
-   - 中國內地、香港、台灣、其他
-
-3. **🌏 區域對比圖** | Regional Comparison Over Time
-   - 堆疊面積圖顯示各地區趨勢
-   - 可比較不同時期各地區表現
-
-### 查看儀表板 | View Dashboard
-
-**本地查看** | Local:
-```bash
-open index.html
-```
-
-**GitHub Pages** (啟用後):
-```
-https://john-fb-agent.github.io/macao-tourist-stats/
-```
-
----
-
-## 🔄 手動更新數據 | Manual Data Update
-
-### 本地更新 | Local Update
-
-```bash
-# 克隆倉庫
-git clone https://github.com/john-fb-agent/macao-tourist-stats.git
-cd macao-tourist-stats
-
-# 安裝依賴
-pip install -r requirements.txt
-
-# 獲取最新數據
-python scripts/fetch_data.py
-
-# 提交並推送
-git add data/
-git commit -m "📊 Update tourist statistics $(date +%Y-%m-%d)"
-git push origin main
-```
-
-### API 認證 | API Authentication
-
-確保已設置環境變數：
-
-```bash
-export MACAO_DATA_APPCODE="your-appcode-here"
-```
-
-或在 `scripts/fetch_data.py` 中直接配置 APPCODE。
-
----
-
-## 📈 統計指標 | Statistics Metrics
-
-儀表板顯示的統計數據：
-
-| 指標 | 說明 |
-|------|------|
-| Total | 總旅客人數 |
-| Average | 平均每月旅客人數 |
-| Maximum | 最高單月旅客人數 |
-| Minimum | 最低單月旅客人數 |
-| Records | 數據記錄數（月數） |
-
----
-
-## 🔧 本地開發 | Local Development
-
-### 測試數據獲取 | Test Data Fetch
-
-```bash
-python scripts/fetch_data.py
-```
-
-### 查看數據 | View Data
-
-```bash
-cat data/latest_data.json | jq
-cat data/statistics.json | jq
-```
-
-### 本地預覽儀表板 | Preview Dashboard
+### 2. 直接在瀏覽器打開
 
 ```bash
 # macOS
@@ -214,58 +97,116 @@ xdg-open index.html
 
 # Windows
 start index.html
-
-# 或使用 Python 簡單 HTTP 服務器
-python -m http.server 8000
-# 然後訪問 http://localhost:8000
 ```
 
----
-
-## 🌐 啟用 GitHub Pages | Enable GitHub Pages
-
-1. 進入 **Settings** → **Pages**
-2. **Source**: Deploy from a branch
-3. **Branch**: Select `main` → `/ (root)`
-4. Click **Save**
-5. 等待幾分鐘，訪問: `https://john-fb-agent.github.io/macao-tourist-stats/`
-
----
-
-## 📝 API 使用示例 | API Usage Examples
-
-### Python
-
-```python
-import requests
-
-headers = {
-    "Authorization": "APPCODE YOUR_APPCODE"
-}
-
-url = "https://data.gov.mo/api/resource/3546225a-2a34-4645-b01e-6752aed03993"
-
-response = requests.get(url, headers=headers)
-data = response.json()
-
-print(data)
-```
-
-### cURL
+### 3. 或使用本地服務器
 
 ```bash
-curl -H "Authorization: APPCODE YOUR_APPCODE" \
-  "https://data.gov.mo/api/resource/3546225a-2a34-4645-b01e-6752aed03993"
+# Python 3
+python -m http.server 8000
+
+# 訪問 http://localhost:8000
 ```
 
 ---
 
-## 🗓️ 更新歷史 | Update History
+## 📊 圖表說明 | Charts
 
-| 日期 | 更新內容 |
-|------|----------|
-| 2026-03-18 | v2.0 - 改用 HTML + JavaScript 交互式圖表 |
-| 2026-03-18 | v1.0 - 初始版本 - 數據獲取 + Python 生成圖表 |
+### 主頁 (index.html)
+
+- **年度柱狀圖** - 每年總旅客人數
+- **統計卡片** - 總數、最高年份、最低年份、數據範圍
+
+### 月度趨勢 (monthly-trend.html)
+
+1. **全期月度趨勢** - 2008-2026 所有月度數據 (單線)
+2. **近年對比** - 2019-2026 每月對比 (8 條線)
+   - 🔴 2026 年：紅色粗線 (6px)
+   - 2024-2025: 青綠色
+   - 2020-2023: 紫色
+   - 2019: 灰色
+3. **全年對比** - 2008-2026 每月對比 (19 條線)
+
+### 年度趨勢 (yearly-trend.html)
+
+1. **年度柱狀圖** - 每年總旅客人數 (彩色漸變)
+2. **年增長率** - 同比增長率 (綠色=正增長，紅色=負增長)
+
+---
+
+## 📈 統計數據 | Statistics
+
+### 數據概覽
+
+| 指標 | 數值 |
+|------|------|
+| **總記錄數** | 217 個月 |
+| **年份範圍** | 2008-2026 |
+| **數據來源** | DSEC API |
+| **最後更新** | 2026-03-19 |
+
+### 關鍵統計
+
+| 指標 | 數值 | 時間 |
+|------|------|------|
+| **總旅客數** | ~5 億人次 | 2008-2026 |
+| **平均每月** | ~250 萬人次 | - |
+| **最高月份** | ~365 萬人次 | 2024 年 8 月 |
+| **最低月份** | ~20 萬人次 | 2020 年 (疫情) |
+
+---
+
+## 🛠️ 技術棧 | Tech Stack
+
+| 技術 | 用途 |
+|------|------|
+| **HTML5/CSS3** | 頁面結構和樣式 |
+| **JavaScript (ES6+)** | 數據處理和圖表生成 |
+| **Chart.js 4.4.0** | 交互式圖表庫 |
+| **GitHub Pages** | 靜態網站託管 |
+| **DSEC API** | 數據來源 |
+
+---
+
+## 📝 數據更新 | Data Update
+
+### 手動更新
+
+```bash
+# 1. 從 API 獲取最新數據
+python3 scripts/fetch_data.py
+
+# 2. 提交並推送
+git add data/
+git commit -m "data: Update tourist statistics $(date +%Y-%m-%d)"
+git push origin main
+```
+
+### GitHub Actions (可選)
+
+配置自動更新請參考 [docs/DATA_WORKFLOW.md](docs/DATA_WORKFLOW.md)
+
+---
+
+## 📚 文檔 | Documentation
+
+| 文檔 | 說明 |
+|------|------|
+| [API.md](docs/API.md) | DSEC API 完整文檔 |
+| [DATA_WORKFLOW.md](docs/DATA_WORKFLOW.md) | 數據處理流程 |
+| [DESIGN.md](docs/DESIGN.md) | 系統架構設計 |
+| [CHANGELOG.md](docs/CHANGELOG.md) | 版本歷史 |
+
+---
+
+## 🎨 顏色方案 | Color Scheme
+
+| 年份 | 顏色 | 說明 |
+|------|------|------|
+| 2026 | 🔴 #ff4757 | 當前年份 (高亮) |
+| 2024-2025 | 🔵 #4ecdc4 | 近期年份 |
+| 2020-2023 | 🟣 #667eea | 疫情時期 |
+| 2008-2019 | ⚫ #999999 | 歷史數據 |
 
 ---
 
@@ -290,15 +231,14 @@ MIT License - 詳見 [LICENSE](LICENSE) 文件
 ## 📧 聯絡方式 | Contact
 
 - **GitHub**: [@john-fb-agent](https://github.com/john-fb-agent)
-- **Data Source**: [data.gov.mo](https://data.gov.mo)
+- **Data Source**: [DSEC](https://www.dsec.gov.mo)
 
 ---
 
 ## 🔗 相關連結 | Related Links
 
-- [澳門政府數據開放平台](https://data.gov.mo)
 - [澳門統計暨普查局](https://www.dsec.gov.mo)
-- [澳門旅遊局](https://www.macaotourism.gov.mo)
+- [澳門政府數據開放平台](https://data.gov.mo)
 - [Chart.js 文檔](https://www.chartjs.org/)
 
 ---
@@ -307,9 +247,8 @@ MIT License - 詳見 [LICENSE](LICENSE) 文件
 
 **Made with ❤️ for Macau Data Analysis**
 
-⭐ 如果對你有幫助，請給個 Star！
-
 📊 [View Live Dashboard](https://john-fb-agent.github.io/macao-tourist-stats/)
 
+**Version**: v1.5 | **Last Updated**: 2026-03-19
+
 </div>
-# Test
