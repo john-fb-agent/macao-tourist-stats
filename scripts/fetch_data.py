@@ -10,9 +10,8 @@ from datetime import datetime
 import os
 
 # API Configuration
-DATASET_ID = "3546225a-2a34-4645-b01e-6752aed03993"
-API_BASE = "https://data.gov.mo/api/resource"
-# Use APPCODE format: "APPCODE xxx" (not "Token xxx")
+# Correct API endpoint from data.gov.mo documentation
+API_URL = "https://dsec.apigateway.data.gov.mo/public/KeyIndicator/VisitorArrivals"
 APPCODE = os.getenv("MACAO_DATA_APPCODE", "09d43a591fba407fb862412970667de4")
 
 # Output directory
@@ -22,60 +21,70 @@ def fetch_tourist_data():
     """Fetch tourist arrival data from Macau government API"""
     print(f"📊 Fetching Macau tourist data...")
     
-    # Try different API endpoints
-    endpoints = [
-        f"{API_BASE}/{DATASET_ID}",
-        f"https://api.data.gov.mo/document/download/{DATASET_ID}",
-    ]
-    
     # Correct format: "APPCODE xxx" (as per data.gov.mo documentation)
     headers = {
         "Authorization": f"APPCODE {APPCODE}",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Content-Type": "application/json"
     }
     
-    for url in endpoints:
-        try:
-            print(f"  Trying: {url}")
-            response = requests.get(url, headers=headers, timeout=30)
-            
-            if response.status_code == 200:
-                # Check if response is JSON
-                try:
-                    data = response.json()
-                    
-                    # Ensure output directory exists
-                    os.makedirs(OUTPUT_DIR, exist_ok=True)
-                    
-                    # Save raw data
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    raw_file = os.path.join(OUTPUT_DIR, f"raw_data_{timestamp}.json")
-                    
-                    with open(raw_file, "w", encoding="utf-8") as f:
-                        json.dump(data, f, ensure_ascii=False, indent=2)
-                    
-                    # Save latest data
-                    latest_file = os.path.join(OUTPUT_DIR, "latest_data.json")
-                    with open(latest_file, "w", encoding="utf-8") as f:
-                        json.dump(data, f, ensure_ascii=False, indent=2)
-                    
-                    print(f"✅ Data fetched successfully!")
-                    print(f"📁 Raw data saved to: {raw_file}")
-                    print(f"📁 Latest data saved to: {latest_file}")
-                    
-                    return data
-                    
-                except json.JSONDecodeError:
-                    print(f"  ⚠️  Response is not JSON, trying next endpoint...")
-                    continue
-            else:
-                print(f"  ⚠️  Status {response.status_code}, trying next endpoint...")
-                
-        except requests.exceptions.RequestException as e:
-            print(f"  ⚠️  Error: {e}, trying next endpoint...")
-            continue
+    # POST request with optional parameters
+    payload = {
+        "from_year": 2008,  # Min year from API docs
+        "to_year": 2026,    # Max year (current year)
+        "lang": "zh-MO"
+    }
     
-    # If all endpoints fail, create sample data
+    try:
+        print(f"  POST {API_URL}")
+        print(f"  Payload: {payload}")
+        response = requests.post(API_URL, headers=headers, json=payload, timeout=30)
+        
+        print(f"  Status: {response.status_code}")
+        print(f"  Content-Type: {response.headers.get('Content-Type', 'unknown')}")
+        
+        if response.status_code == 200:
+            # Check if response is JSON
+            try:
+                data = response.json()
+                
+                # Ensure output directory exists
+                os.makedirs(OUTPUT_DIR, exist_ok=True)
+                
+                # Save raw data
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                raw_file = os.path.join(OUTPUT_DIR, f"raw_data_{timestamp}.json")
+                
+                with open(raw_file, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                
+                # Save latest data
+                latest_file = os.path.join(OUTPUT_DIR, "latest_data.json")
+                with open(latest_file, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                
+                print(f"✅ Data fetched successfully!")
+                print(f"📁 Raw data saved to: {raw_file}")
+                print(f"📁 Latest data saved to: {latest_file}")
+                
+                # Print summary
+                if 'data' in data:
+                    import json as json_module
+                    inner_data = json_module.loads(data['data']) if isinstance(data['data'], str) else data['data']
+                    if 'value' in inner_data and 'values' in inner_data['value']:
+                        print(f"📊 Records found: {len(inner_data['value']['values'])}")
+                        print(f"📅 Date range: {inner_data['value'].get('minYear', '?')} - {inner_data['value'].get('maxYear', '?')}")
+                
+                return data
+                
+            except json.JSONDecodeError as e:
+                print(f"  ⚠️  Response is not JSON: {e}")
+                print(f"  Response: {response.text[:200]}...")
+        else:
+            print(f"  ⚠️  Status {response.status_code}")
+            print(f"  Response: {response.text[:200]}...")
+    
+    # If API fails, create sample data
     print("\n⚠️  API unavailable, generating sample data for demonstration...")
     sample_data = generate_sample_data()
     
@@ -136,6 +145,50 @@ def process_data(data):
         print("❌ No data to process")
         return None
     
+    # Handle new API response format from dsec.apigateway.data.gov.mo
+    if 'value' in data and 'values' in data['value']:
+        print("  📊 Processing DSEC API format...")
+        api_data = data['value']
+        raw_values = api_data.get('values', [])
+        
+        # Convert to standard format
+        records = []
+        for item in raw_values:
+            period = item.get('periodString', '')  # e.g., "2008 年 1 月"
+            value = item.get('value', '0')
+            
+            # Parse year and month from periodString
+            year_month = period.replace('年', '-').replace('月', '')
+            
+            records.append({
+                "periodString": period,
+                "year_month": year_month,
+                "value": int(value),
+                "value_formatted": f"{int(value):,}"
+            })
+        
+        # Save processed data
+        processed_file = os.path.join(OUTPUT_DIR, "processed_data.json")
+        processed_output = {
+            "title": api_data.get('title', '入境旅客'),
+            "unit": api_data.get('unit', '人次'),
+            "minYear": api_data.get('minYear', '?'),
+            "maxYear": api_data.get('maxYear', '?'),
+            "periodType": api_data.get('periodType', '月度'),
+            "records": records,
+            "count": len(records)
+        }
+        
+        with open(processed_file, "w", encoding="utf-8") as f:
+            json.dump(processed_output, f, ensure_ascii=False, indent=2)
+        
+        print(f"✅ Processed {len(records)} records")
+        print(f"📅 Date range: {processed_output['minYear']} - {processed_output['maxYear']}")
+        print(f"📁 Saved to: {processed_file}")
+        
+        return processed_output
+    
+    # Fallback to old format
     records = data.get("result", []) if isinstance(data, dict) else data
     
     if not records:
