@@ -39,16 +39,9 @@
         <div id="content" style="display: none;">
             <div class="stats-grid" id="stats-grid"></div>
             
-            <div class="charts-grid">
-                <div class="chart-card">
-                    <h2>📈 旅客趨勢 | Tourist Arrivals Trend</h2>
-                    <div class="chart-container"><canvas id="lineChart"></canvas></div>
-                </div>
-                
-                <div class="chart-card">
-                    <h2>📊 區域分佈 | Visitors by Region</h2>
-                    <div class="chart-container"><canvas id="barChart"></canvas></div>
-                </div>
+            <div class="chart-card">
+                <h2>📈 旅客趨勢 | Tourist Arrivals Trend</h2>
+                <div class="chart-container"><canvas id="lineChart"></canvas></div>
             </div>
         </div>
         
@@ -170,27 +163,6 @@
             });
         }
         
-        // Create bar chart
-        function createBarChart(data) {
-            const ctx = document.getElementById('barChart').getContext('2d');
-            const sum = arr => arr.reduce((a, b) => a + b, 0);
-            
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Mainland', 'Hong Kong', 'Taiwan', 'Other'],
-                    datasets: [{
-                        data: [sum(data.total), sum(data.total), sum(data.total), sum(data.total)],
-                        backgroundColor: [colors.mainland, colors.hk, colors.taiwan, colors.other]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-        }
-        
         // Initialize
         async function init() {
             const records = await loadData();
@@ -212,7 +184,6 @@
             displayStats(stats);
             
             createLineChart(data);
-            createBarChart(data);
             
             document.getElementById('last-update').textContent = 'Last Updated: ' + new Date().toLocaleString();
         }
