@@ -246,15 +246,15 @@
         // Load data
         async function loadData() {
             try {
-                const response = await fetch('data/latest_data.json');
+                const response = await fetch('data/data.json');
                 if (!response.ok) {
-                    throw new Error('Failed to load data');
+                    throw new Error('Failed to load data.json');
                 }
                 const data = await response.json();
-                return data.result || data;
+                return data.value || data;
             } catch (error) {
                 console.error('Error loading data:', error);
-                showError('Failed to load data. Please ensure latest_data.json exists.');
+                showError('Failed to load data. Please ensure data/data.json exists.');
                 return null;
             }
         }
