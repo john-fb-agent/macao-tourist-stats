@@ -60,7 +60,7 @@
     </div>
     
     <script>
-        const VERSION = 'v1.2';  // Version number
+        const VERSION = 'v1.3';  // Version number - Current year highlighted in red
         const colors = { 
             primary: '#667eea', 
             secondary: '#764ba2',
@@ -197,27 +197,37 @@
             debug('Creating ' + years.length + ' datasets');
             
             years.forEach(year => {
-                const isCurrentYear = parseInt(year) === currentYear;
-                const yearColor = parseInt(year) < 2020 ? '#999' : 
-                                  parseInt(year) < 2024 ? '#667eea' : 
-                                  isCurrentYear ? '#667eea' : '#4ecdc4';
+                const yearNum = parseInt(year);
+                const isCurrentYear = yearNum === currentYear;
+                
+                // Color scheme: gray for old, blue for recent, RED for current year
+                let yearColor;
+                if (isCurrentYear) {
+                    yearColor = '#ff4757';  // Bright red for current year
+                } else if (yearNum >= 2024) {
+                    yearColor = '#4ecdc4';  // Teal for recent years
+                } else if (yearNum >= 2020) {
+                    yearColor = '#667eea';  // Purple for pandemic era
+                } else {
+                    yearColor = '#999999';  // Gray for older years
+                }
                 
                 const nonNullCount = yearlyData[year].filter(v => v !== null).length;
-                debug(year + ': ' + nonNullCount + ' months with data');
                 
                 datasets.push({
-                    label: year + '年',
+                    label: year + '年' + (isCurrentYear ? ' 🔴' : ''),
                     data: yearlyData[year],
                     borderColor: yearColor,
                     backgroundColor: yearColor + '20',
-                    borderWidth: isCurrentYear ? 4 : 2,
+                    borderWidth: isCurrentYear ? 6 : 2,  // Extra thick for current year
                     fill: false,
                     tension: 0.4,
-                    pointRadius: isCurrentYear ? 5 : 3,
-                    pointHoverRadius: isCurrentYear ? 7 : 5,
+                    pointRadius: isCurrentYear ? 8 : 3,  // Larger points for current year
+                    pointHoverRadius: isCurrentYear ? 12 : 6,
                     pointBackgroundColor: yearColor,
                     pointBorderColor: '#fff',
-                    pointBorderWidth: 2
+                    pointBorderWidth: isCurrentYear ? 3 : 2,
+                    order: isCurrentYear ? 0 : 1  // Draw current year on top
                 });
             });
             
