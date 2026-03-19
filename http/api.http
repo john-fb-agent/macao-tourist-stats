@@ -1,0 +1,11 @@
+### Total number of passengers to Macau
+
+POST https://dsec.apigateway.data.gov.mo/public/KeyIndicator/VisitorArrivals
+Content-Type: application/json
+Authorization: APPCODE 09d43a591fba407fb862412970667de4
+
+{
+ "lang": "zh-MO",
+ "from_year": 2002,
+ "to_year": 2026
+}
