@@ -182,6 +182,9 @@
             📊 Loading data...
         </div>
         
+        <!-- Debug output -->
+        <div id="debug-output" style="background: #1a1a2e; color: #0f0; padding: 15px; margin: 20px; border-radius: 8px; font-family: monospace; font-size: 12px; white-space: pre-wrap; display: block;"></div>
+        
         <div id="content" style="display: none;">
             <!-- Statistics Cards -->
             <div class="stats-grid" id="stats-grid"></div>
@@ -328,14 +331,14 @@
         
         // Create line chart
         function createLineChart(data) {
-            console.log('📈 Creating line chart...');
+            debug('📈 Creating line chart...');
             const canvas = document.getElementById('lineChart');
             if (!canvas) {
-                console.error('❌ lineChart canvas not found');
+                debug('❌ lineChart canvas not found!');
                 return;
             }
-            const ctx = canvas.getContext('2d');
-            console.log('Canvas found, data labels:', data.labels?.length);
+            debug('   Canvas found ✓');
+            debug('   Data labels: ' + data.labels.length);
             
             try {
                 new Chart(ctx, {
@@ -530,16 +533,26 @@
             loading.innerHTML = `<div class="error">❌ ${message}</div>`;
         }
         
+        // Debug output helper
+        function debug(msg) {
+            const output = document.getElementById('debug-output');
+            if (output) {
+                output.textContent += msg + '\n';
+            }
+            console.log(msg);
+        }
+        
         // Initialize dashboard
         async function init() {
-            console.log('🚀 Initializing dashboard...');
+            debug('🚀 Initializing dashboard...');
             
             const records = await loadData();
-            console.log('📊 Data loaded:', records);
+            debug('📊 Data loaded: ' + (records ? 'SUCCESS' : 'FAILED'));
+            debug('   Records: ' + (records?.values?.length || 0));
             
             if (!records) {
-                console.error('❌ No data loaded');
-                showError('Failed to load data - check console for details');
+                debug('❌ No data loaded');
+                showError('Failed to load data');
                 return;
             }
             
@@ -547,41 +560,44 @@
                 // Hide loading, show content
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
+                document.getElementById('debug-output').style.display = 'block';
                 
                 // Process data
-                console.log('🔄 Processing data...');
+                debug('🔄 Processing data...');
                 const data = processData(records);
-                console.log('📈 Processed data:', data);
+                debug('📈 Processed data:');
+                debug('   Labels: ' + (data.labels?.length || 0));
+                debug('   First label: ' + (data.labels?.[0] || 'N/A'));
+                debug('   First value: ' + (data.total?.[0] || 'N/A'));
                 
                 if (!data.labels || data.labels.length === 0) {
-                    console.error('❌ No labels in processed data');
+                    debug('❌ No labels in processed data');
                     showError('Data processing failed - no labels');
                     return;
                 }
                 
                 // Calculate and display statistics
-                console.log('📊 Calculating stats...');
+                debug('📊 Calculating stats...');
                 const stats = calculateStats(data);
-                console.log('📊 Stats:', stats);
+                debug('   Total: ' + stats.total.sum.toLocaleString());
+                debug('   Average: ' + stats.total.avg.toLocaleString());
                 displayStats(stats);
                 
                 // Create charts
-                console.log('📈 Creating charts...');
+                debug('📈 Creating charts...');
                 createLineChart(data);
-                console.log('✅ Line chart created');
                 createBarChart(data);
-                console.log('✅ Bar chart created');
                 createAreaChart(data);
-                console.log('✅ Area chart created');
+                debug('✅ All charts created!');
                 
                 // Update last update time
                 const now = new Date();
                 document.getElementById('last-update').textContent = 
                     `Last Updated: ${now.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })}`;
                 
-                console.log('✅ Dashboard initialized successfully!');
+                debug('✅ Dashboard initialized successfully!');
             } catch (error) {
-                console.error('❌ Error initializing dashboard:', error);
+                debug('❌ Error: ' + error.message);
                 showError('Error: ' + error.message);
             }
         }
