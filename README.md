@@ -56,11 +56,13 @@ macao-tourist-stats/
 │   ├── DATA_WORKFLOW.md          # 數據處理流程
 │   ├── DESIGN.md                 # 系統設計
 │   └── CHANGELOG.md              # 版本歷史
+├── http/
+│   └── api.http                  # HTTP 請求測試文件 (REST Client)
 ├── index.html                    # 📊 主儀表板 (Main Dashboard)
 ├── yearly-comparison.html        # 📈 年度對比頁 (Year Comparison)
 ├── requirements.txt              # Python 依賴
 ├── README.md                     # 本文件
-└── SETUP.md                      # 設置指南
+└── .env.example                  # 環境變數範本
 ```
 
 ---
