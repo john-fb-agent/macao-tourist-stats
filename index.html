@@ -99,12 +99,17 @@
             const sum = arr => arr.reduce((a, b) => a + b, 0);
             const avg = arr => arr.length ? sum(arr) / arr.length : 0;
             
+            const maxIndex = data.total.indexOf(Math.max(...data.total));
+            const minIndex = data.total.indexOf(Math.min(...data.total));
+            
             return {
                 total: {
                     sum: sum(data.total),
                     avg: avg(data.total),
                     max: Math.max(...data.total),
-                    min: Math.min(...data.total)
+                    maxMonth: data.labels[maxIndex] || 'N/A',
+                    min: Math.min(...data.total),
+                    minMonth: data.labels[minIndex] || 'N/A'
                 },
                 records: data.labels.length
             };
@@ -114,22 +119,22 @@
         function displayStats(stats) {
             document.getElementById('stats-grid').innerHTML = `
                 <div class="stat-card">
-                    <h3>📊 Total</h3>
+                    <h3>📊 Total Visitors</h3>
                     <div class="value">${formatNumber(stats.total.sum)}</div>
-                    <div class="sub">${formatNumber(Math.round(stats.total.avg))} / month</div>
+                    <div class="sub">${formatNumber(Math.round(stats.total.avg))} / month avg</div>
                 </div>
                 <div class="stat-card">
-                    <h3>📈 Maximum</h3>
+                    <h3>📈 Peak Month</h3>
                     <div class="value">${formatNumber(stats.total.max)}</div>
-                    <div class="sub">Peak month</div>
+                    <div class="sub">${stats.total.maxMonth}</div>
                 </div>
                 <div class="stat-card">
-                    <h3>📉 Minimum</h3>
+                    <h3>📉 Lowest Month</h3>
                     <div class="value">${formatNumber(stats.total.min)}</div>
-                    <div class="sub">Lowest month</div>
+                    <div class="sub">${stats.total.minMonth}</div>
                 </div>
                 <div class="stat-card">
-                    <h3>📅 Records</h3>
+                    <h3>📅 Data Range</h3>
                     <div class="value">${stats.records}</div>
                     <div class="sub">months</div>
                 </div>
