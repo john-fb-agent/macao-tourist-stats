@@ -1,0 +1,44 @@
+// For format details, see https://aka.ms/devcontainer.json
+{
+  "name": "Macau Tourist Statistics",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
+  },
+  
+  // Use 'forwardPorts' to make a port available within the container.
+  "forwardPorts": [8000],
+  
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "npm install -g http-server && echo '✅ Dev container ready! Run: http-server -p 8000'",
+  
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ritwickdey.LiveServer",
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "files.exclude": {
+          "**/node_modules": true,
+          "**/.git": true
+        },
+        "python.defaultInterpreterPath": "/usr/bin/python3"
+      }
+    }
+  },
+  
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root",
+  
+  "description": "Development container for Macau Tourist Statistics dashboard - includes Node.js, Python, and live server for development"
+}
