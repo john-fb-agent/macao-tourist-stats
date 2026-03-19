@@ -328,8 +328,17 @@
         
         // Create line chart
         function createLineChart(data) {
-            const ctx = document.getElementById('lineChart').getContext('2d');
-            new Chart(ctx, {
+            console.log('📈 Creating line chart...');
+            const canvas = document.getElementById('lineChart');
+            if (!canvas) {
+                console.error('❌ lineChart canvas not found');
+                return;
+            }
+            const ctx = canvas.getContext('2d');
+            console.log('Canvas found, data labels:', data.labels?.length);
+            
+            try {
+                new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: data.labels,
@@ -369,11 +378,21 @@
                     }
                 }
             });
+            console.log('✅ Line chart created successfully');
+        } catch (error) {
+            console.error('❌ Error creating line chart:', error);
+        }
         }
         
         // Create bar chart
         function createBarChart(data) {
-            const ctx = document.getElementById('barChart').getContext('2d');
+            console.log('📊 Creating bar chart...');
+            const canvas = document.getElementById('barChart');
+            if (!canvas) {
+                console.error('❌ barChart canvas not found');
+                return;
+            }
+            const ctx = canvas.getContext('2d');
             
             // Calculate totals for each region
             const sum = arr => arr.reduce((a, b) => a + b, 0);
@@ -422,11 +441,21 @@
                     }
                 }
             });
+            console.log('✅ Bar chart created successfully');
+        } catch (error) {
+            console.error('❌ Error creating bar chart:', error);
+        }
         }
         
         // Create area chart
         function createAreaChart(data) {
-            const ctx = document.getElementById('areaChart').getContext('2d');
+            console.log('📉 Creating area chart...');
+            const canvas = document.getElementById('areaChart');
+            if (!canvas) {
+                console.error('❌ areaChart canvas not found');
+                return;
+            }
+            const ctx = canvas.getContext('2d');
             new Chart(ctx, {
                 type: 'line',
                 data: {
