@@ -65,12 +65,9 @@ macao-tourist-stats/
 ├── index.html                    # 🏠 主頁 - 年度趨勢
 ├── monthly-trend.html            # 📈 月度趨勢 - 3 個圖表
 ├── yearly-trend.html             # 📊 年度趨勢 - 增長率分析
-├── test-simple.html              # 🧪 測試頁面
-├── requirements.txt              # Python 依賴
 ├── README.md                     # 本文件
 └── docs/
     ├── API.md                    # API 文檔
-    ├── DATA_WORKFLOW.md          # 數據處理流程
     ├── DESIGN.md                 # 系統設計
     └── CHANGELOG.md              # 版本歷史
 ```
@@ -184,7 +181,7 @@ git push origin main
 
 ### GitHub Actions (可選)
 
-配置自動更新請參考 [docs/DATA_WORKFLOW.md](docs/DATA_WORKFLOW.md)
+配置自動更新請參考 [docs/DESIGN.md](docs/DESIGN.md)
 
 ---
 
