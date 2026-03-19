@@ -503,30 +503,58 @@
         
         // Initialize dashboard
         async function init() {
+            console.log('🚀 Initializing dashboard...');
+            
             const records = await loadData();
+            console.log('📊 Data loaded:', records);
             
-            if (!records) return;
+            if (!records) {
+                console.error('❌ No data loaded');
+                showError('Failed to load data - check console for details');
+                return;
+            }
             
-            // Hide loading, show content
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-            
-            // Process data
-            const data = processData(records);
-            
-            // Calculate and display statistics
-            const stats = calculateStats(data);
-            displayStats(stats);
-            
-            // Create charts
-            createLineChart(data);
-            createBarChart(data);
-            createAreaChart(data);
-            
-            // Update last update time
-            const now = new Date();
-            document.getElementById('last-update').textContent = 
-                `Last Updated: ${now.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })}`;
+            try {
+                // Hide loading, show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+                // Process data
+                console.log('🔄 Processing data...');
+                const data = processData(records);
+                console.log('📈 Processed data:', data);
+                
+                if (!data.labels || data.labels.length === 0) {
+                    console.error('❌ No labels in processed data');
+                    showError('Data processing failed - no labels');
+                    return;
+                }
+                
+                // Calculate and display statistics
+                console.log('📊 Calculating stats...');
+                const stats = calculateStats(data);
+                console.log('📊 Stats:', stats);
+                displayStats(stats);
+                
+                // Create charts
+                console.log('📈 Creating charts...');
+                createLineChart(data);
+                console.log('✅ Line chart created');
+                createBarChart(data);
+                console.log('✅ Bar chart created');
+                createAreaChart(data);
+                console.log('✅ Area chart created');
+                
+                // Update last update time
+                const now = new Date();
+                document.getElementById('last-update').textContent = 
+                    `Last Updated: ${now.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })}`;
+                
+                console.log('✅ Dashboard initialized successfully!');
+            } catch (error) {
+                console.error('❌ Error initializing dashboard:', error);
+                showError('Error: ' + error.message);
+            }
         }
         
         // Start
