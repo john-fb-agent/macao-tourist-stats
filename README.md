@@ -19,19 +19,26 @@ This project automatically fetches tourist arrival statistics from Macau Governm
 - 🔄 **自動更新** - GitHub Actions 每週一自動獲取最新數據
 - 📊 **交互式圖表** - 使用 Chart.js 生成可交互的 HTML 圖表
 - 📈 **數據分析** - 自動計算總數、平均值、最高/最低值
-- 🇲🇴 **官方數據** - 直接來自澳門政府數據開放平台
+- 🇲🇴 **官方數據** - 直接來自澳門統計暨普查局 (DSEC)
+- 📅 **歷史數據** - 2008 年至今的完整月度數據
 - 🌐 **GitHub Pages** - 可直接在瀏覽器查看儀表板
+- 📱 **響應式設計** - 支援桌面和移動設備
 
 ---
 
 ## 📊 數據來源 | Data Source
 
-**澳門政府數據開放平台** | Macau Government Data Platform
+**澳門統計暨普查局 (DSEC)** | Statistics and Census Service
 
-- **網站**: https://data.gov.mo
-- **數據集**: 入境旅客統計 | Tourist Arrival Statistics
-- **數據集 ID**: `3546225a-2a34-4645-b01e-6752aed03993`
-- **API 文檔**: https://data.gov.mo/api/resource/{dataset_id}
+- **API 端點**: https://dsec.apigateway.data.gov.mo/public/KeyIndicator/VisitorArrivals
+- **數據集**: 入境旅客 | Visitor Arrivals
+- **數據範圍**: 2008 年至今 | 2008 to Present
+- **更新頻率**: 月度 | Monthly
+- **官方網站**:
+  - [DSEC](https://www.dsec.gov.mo)
+  - [data.gov.mo](https://data.gov.mo/Detail?id=3546225a-2a34-4645-b01e-6752aed03993)
+
+**API 詳情**: 詳見 [docs/API.md](docs/API.md)
 
 ---
 
@@ -46,8 +53,15 @@ macao-tourist-stats/
 │   └── fetch_data.py             # 數據獲取腳本
 ├── data/
 │   ├── latest_data.json          # 最新原始數據
+│   ├── processed_data.json       # 處理後數據
 │   └── statistics.json           # 統計摘要
-├── index.html                    # 📊 交互式儀表板 (Interactive Dashboard)
+├── docs/
+│   ├── API.md                    # API 文檔
+│   ├── DATA_WORKFLOW.md          # 數據處理流程
+│   ├── DESIGN.md                 # 系統設計
+│   └── CHANGELOG.md              # 版本歷史
+├── index.html                    # 📊 主儀表板 (Main Dashboard)
+├── yearly-comparison.html        # 📈 年度對比頁 (Year Comparison)
 ├── requirements.txt              # Python 依賴
 ├── README.md                     # 本文件
 └── WORKFLOW-INSTRUCTIONS.md      # GitHub Actions 設置指南
