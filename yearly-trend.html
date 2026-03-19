@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-MO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Yearly Trend - Macau Tourist Statistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 30px; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .nav-links { text-align: center; margin-bottom: 30px; }
+        .nav-links a { display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; margin: 5px; border-radius: 8px; text-decoration: none; transition: background 0.3s; }
+        .nav-links a:hover { background: rgba(255,255,255,0.3); }
+        .chart-card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 30px; }
+        .chart-card h2 { color: #333; margin-bottom: 20px; font-size: 1.5em; }
+        .chart-container { position: relative; height: 500px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .stat-card h3 { color: #667eea; font-size: 0.9em; margin-bottom: 10px; text-transform: uppercase; }
+        .stat-card .value { font-size: 2em; font-weight: bold; color: #333; }
+        .stat-card .sub { color: #666; font-size: 0.9em; margin-top: 5px; }
+        .footer { text-align: center; color: white; margin-top: 30px; opacity: 0.8; }
+        .loading { text-align: center; color: white; font-size: 1.5em; padding: 50px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Yearly Trend</h1>
+            <p>Macau Tourist Arrivals - Year by Year</p>
+        </div>
+        
+        <div class="nav-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="monthly-trend.html">📈 Monthly Trend</a>
+            <a href="yearly-trend.html">📊 Yearly Trend</a>
+        </div>
+        
+        <div id="loading" class="loading">📊 Loading data...</div>
+        
+        <div id="content" style="display: none;">
+            <div class="stats-grid" id="stats-grid"></div>
+            
+            <div class="chart-card">
+                <h2>📊 Yearly Tourist Arrivals (2008-2026)</h2>
+                <div class="chart-container"><canvas id="yearlyChart"></canvas></div>
+            </div>
+            
+            <div class="chart-card">
+                <h2>📈 Year-over-Year Growth Rate</h2>
+                <div class="chart-container"><canvas id="growthChart"></canvas></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Made with ❤️ for Macau Data Analysis</p>
+            <p>© 2026 | Data from <a href="https://data.gov.mo" target="_blank">data.gov.mo</a></p>
+        </div>
+    </div>
+    
+    <script>
+        const colors = { primary: '#667eea', growth: '#4ecdc4', decline: '#ff6b6b' };
+        
+        function formatNumber(num) { return num.toLocaleString('en-US'); }
+        
+        async function loadData() {
+            try {
+                const response = await fetch('data/data.json');
+                if (!response.ok) throw new Error('Failed to load data');
+                const data = await response.json();
+                return data.value || data;
+            } catch (error) {
+                console.error('Error loading data:', error);
+                return null;
+            }
+        }
+        
+        function calculateYearlyStats(data) {
+            const values = data.values || [];
+            const yearlyTotals = {};
+            
+            values.forEach(v => {
+                const year = v.periodString?.split('年')?.[0] || '';
+                if (year && v.value) {
+                    yearlyTotals[year] = (yearlyTotals[year] || 0) + parseInt(v.value);
+                }
+            });
+            
+            const years = Object.keys(yearlyTotals).sort();
+            const totals = years.map(y => yearlyTotals[y]);
+            const labels = years.map(y => y + '年');
+            
+            // Calculate growth rates
+            const growthRates = [null];
+            for (let i = 1; i < totals.length; i++) {
+                const rate = ((totals[i] - totals[i-1]) / totals[i-1] * 100).toFixed(1);
+                growthRates.push(parseFloat(rate));
+            }
+            
+            return { years, labels, totals, growthRates, records: values.length };
+        }
+        
+        function displayStats(stats) {
+            const sum = stats.totals.reduce((a, b) => a + b, 0);
+            const avg = sum / stats.totals.length;
+            const max = Math.max(...stats.totals);
+            const min = Math.min(...stats.totals);
+            const maxIndex = stats.totals.indexOf(max);
+            const minIndex = stats.totals.indexOf(min);
+            
+            document.getElementById('stats-grid').innerHTML = `
+                <div class="stat-card">
+                    <h3>📊 Total (All Years)</h3>
+                    <div class="value">${formatNumber(sum)}</div>
+                    <div class="sub">${formatNumber(Math.round(avg))} / year avg</div>
+                </div>
+                <div class="stat-card">
+                    <h3>📈 Peak Year</h3>
+                    <div class="value">${formatNumber(max)}</div>
+                    <div class="sub">${stats.years[maxIndex]}年</div>
+                </div>
+                <div class="stat-card">
+                    <h3>📉 Lowest Year</h3>
+                    <div class="value">${formatNumber(min)}</div>
+                    <div class="sub">${stats.years[minIndex]}年</div>
+                </div>
+                <div class="stat-card">
+                    <h3>📅 Years</h3>
+                    <div class="value">${stats.years.length}</div>
+                    <div class="sub">${stats.records} months data</div>
+                </div>
+            `;
+        }
+        
+        function createYearlyChart(stats) {
+            const ctx = document.getElementById('yearlyChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: stats.labels,
+                    datasets: [{
+                        label: 'Yearly Visitors',
+                        data: stats.totals,
+                        backgroundColor: stats.totals.map((v, i) => {
+                            const intensity = (i + 1) / stats.totals.length;
+                            return `hsl(${230 + intensity * 60}, 70%, ${50 + intensity * 20}%)`;
+                        }),
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => value >= 10000000 ? (value/10000000).toFixed(1) + 'M' : value >= 1000000 ? (value/1000000).toFixed(1) + 'M' : value >= 1000 ? (value/1000).toFixed(0) + 'K' : value
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function createGrowthChart(stats) {
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            
+            const backgroundColors = stats.growthRates.map(rate => {
+                if (rate === null) return '#ccc';
+                return rate >= 0 ? colors.growth : colors.decline;
+            });
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: stats.labels,
+                    datasets: [{
+                        label: 'YoY Growth Rate (%)',
+                        data: stats.growthRates,
+                        backgroundColor: backgroundColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            ticks: { callback: value => value + '%' },
+                            title: { display: true, text: 'Growth Rate (%)' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        async function init() {
+            const data = await loadData();
+            if (!data) {
+                document.getElementById('loading').innerHTML = '❌ Failed to load data';
+                return;
+            }
+            
+            const stats = calculateYearlyStats(data);
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+            
+            displayStats(stats);
+            createYearlyChart(stats);
+            createGrowthChart(stats);
+        }
+        
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
