@@ -78,6 +78,7 @@
         function calculateYearlyStats(data) {
             const values = data.values || [];
             const yearlyTotals = {};
+            const currentYear = new Date().getFullYear();
             
             values.forEach(v => {
                 const year = v.periodString?.split('年')?.[0] || '';
@@ -86,22 +87,28 @@
                 }
             });
             
-            const years = Object.keys(yearlyTotals).sort();
-            const totals = years.map(y => yearlyTotals[y]);
-            const labels = years.map(y => y + '年');
+            // Exclude current year from min/max calculations (incomplete data)
+            const completeYears = Object.keys(yearlyTotals).filter(y => parseInt(y) < currentYear).sort();
+            const allYears = Object.keys(yearlyTotals).sort();
             
-            const maxIndex = totals.indexOf(Math.max(...totals));
-            const minIndex = totals.indexOf(Math.min(...totals));
+            const completeTotals = completeYears.map(y => yearlyTotals[y]);
+            const allTotals = allYears.map(y => yearlyTotals[y]);
+            
+            const maxIndex = completeTotals.indexOf(Math.max(...completeTotals));
+            const minIndex = completeTotals.indexOf(Math.min(...completeTotals));
             
             return {
-                years, labels, totals,
-                sum: totals.reduce((a, b) => a + b, 0),
-                avg: totals.reduce((a, b) => a + b, 0) / totals.length,
-                max: Math.max(...totals),
-                maxYear: years[maxIndex],
-                min: Math.min(...totals),
-                minYear: years[minIndex],
-                records: values.length
+                years: allYears,
+                labels: allYears.map(y => y + '年'),
+                totals: allTotals,
+                sum: allTotals.reduce((a, b) => a + b, 0),
+                avg: completeTotals.reduce((a, b) => a + b, 0) / completeTotals.length,
+                max: Math.max(...completeTotals),
+                maxYear: completeYears[maxIndex],
+                min: Math.min(...completeTotals),
+                minYear: completeYears[minIndex],
+                records: values.length,
+                currentYear: currentYear
             };
         }
         
