@@ -37,9 +37,17 @@
         <div id="loading" class="loading">📊 Loading data...</div>
         
         <div id="content" style="display: none;">
+            <!-- Chart 1: Overall Monthly Trend -->
             <div class="chart-card">
-                <h2>📈 Monthly Tourist Arrivals (2008-2026)</h2>
+                <h2>📈 All Monthly Data (2008-2026)</h2>
                 <div class="chart-container"><canvas id="monthlyChart"></canvas></div>
+            </div>
+            
+            <!-- Chart 2: Year-over-Year Monthly Comparison -->
+            <div class="chart-card">
+                <h2>📊 Year-by-Year Monthly Comparison</h2>
+                <p style="color: #666; margin-bottom: 15px;">Each line represents one year. Current year (2026) shown with <strong style="color: #667eea; font-weight: bold;">bold line</strong>.</p>
+                <div class="chart-container" style="height: 600px;"><canvas id="yearlyComparisonChart"></canvas></div>
             </div>
         </div>
         
@@ -50,7 +58,13 @@
     </div>
     
     <script>
-        const colors = { primary: '#667eea', secondary: '#764ba2' };
+        const colors = { 
+            primary: '#667eea', 
+            secondary: '#764ba2',
+            currentYear: '#667eea'
+        };
+        
+        const months = ['1 月', '2 月', '3 月', '4 月', '5 月', '6 月', '7 月', '8 月', '9 月', '10 月', '11 月', '12 月'];
         
         async function loadData() {
             try {
@@ -64,6 +78,7 @@
             }
         }
         
+        // Chart 1: Overall monthly trend (all data points)
         function createMonthlyChart(data) {
             const ctx = document.getElementById('monthlyChart').getContext('2d');
             const values = data.values || [];
@@ -107,6 +122,103 @@
             });
         }
         
+        // Chart 2: Year-by-year monthly comparison
+        function createYearlyComparisonChart(data) {
+            const ctx = document.getElementById('yearlyComparisonChart').getContext('2d');
+            const values = data.values || [];
+            const currentYear = 2026;
+            
+            // Group data by year
+            const yearlyData = {};
+            values.forEach(v => {
+                const match = v.periodString?.match(/(\d+) 年 (\d+) 月/);
+                if (match) {
+                    const year = match[1];
+                    const month = parseInt(match[2]);
+                    const visitorCount = parseInt(v.value);
+                    
+                    if (!yearlyData[year]) {
+                        yearlyData[year] = new Array(12).fill(null);
+                    }
+                    yearlyData[year][month - 1] = visitorCount;
+                }
+            });
+            
+            // Create datasets for each year
+            const datasets = [];
+            const years = Object.keys(yearlyData).sort();
+            
+            years.forEach(year => {
+                const isCurrentYear = parseInt(year) === currentYear;
+                const yearColor = parseInt(year) < 2020 ? '#999' : 
+                                  parseInt(year) < 2024 ? '#667eea' : 
+                                  isCurrentYear ? '#667eea' : '#4ecdc4';
+                
+                datasets.push({
+                    label: year + '年',
+                    data: yearlyData[year],
+                    borderColor: yearColor,
+                    backgroundColor: yearColor + '20',
+                    borderWidth: isCurrentYear ? 4 : 2,  // Bold line for current year
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: isCurrentYear ? 5 : 3,
+                    pointHoverRadius: isCurrentYear ? 7 : 5,
+                    pointBackgroundColor: yearColor,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                });
+            });
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 10,
+                                font: { size: 10 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const value = context.raw;
+                                    if (value === null) return `${context.dataset.label}: 無數據`;
+                                    return `${context.dataset.label}: ${value.toLocaleString('en-US')} 人次`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: '月份 | Month' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => value >= 1000000 ? (value/1000000).toFixed(1) + 'M' : value >= 1000 ? (value/1000).toFixed(0) + 'K' : value
+                            },
+                            title: { display: true, text: '旅客人數 | Visitors' }
+                        }
+                    }
+                }
+            });
+        }
+        
         async function init() {
             const data = await loadData();
             if (!data) {
@@ -118,6 +230,7 @@
             document.getElementById('content').style.display = 'block';
             
             createMonthlyChart(data);
+            createYearlyComparisonChart(data);
         }
         
         window.addEventListener('load', init);
