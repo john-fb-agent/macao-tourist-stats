@@ -81,6 +81,7 @@
         function calculateYearlyStats(data) {
             const values = data.values || [];
             const yearlyTotals = {};
+            const currentYear = new Date().getFullYear();
             
             values.forEach(v => {
                 const year = v.periodString?.split('年')?.[0] || '';
@@ -89,48 +90,66 @@
                 }
             });
             
-            const years = Object.keys(yearlyTotals).sort();
-            const totals = years.map(y => yearlyTotals[y]);
-            const labels = years.map(y => y + '年');
+            // Exclude current year from min/max calculations (incomplete data)
+            const completeYears = Object.keys(yearlyTotals).filter(y => parseInt(y) < currentYear).sort();
+            const allYears = Object.keys(yearlyTotals).sort();
+            
+            const completeTotals = completeYears.map(y => yearlyTotals[y]);
+            const allTotals = allYears.map(y => yearlyTotals[y]);
+            
+            const maxIndex = completeTotals.indexOf(Math.max(...completeTotals));
+            const minIndex = completeTotals.indexOf(Math.min(...completeTotals));
             
             // Calculate growth rates
             const growthRates = [null];
-            for (let i = 1; i < totals.length; i++) {
-                const rate = ((totals[i] - totals[i-1]) / totals[i-1] * 100).toFixed(1);
-                growthRates.push(parseFloat(rate));
+            for (let i = 1; i < allTotals.length; i++) {
+                if (allTotals[i-1] > 0) {
+                    const rate = ((allTotals[i] - allTotals[i-1]) / allTotals[i-1] * 100).toFixed(1);
+                    growthRates.push(parseFloat(rate));
+                } else {
+                    growthRates.push(null);
+                }
             }
             
-            return { years, labels, totals, growthRates, records: values.length };
+            return { 
+                years: allYears, 
+                labels: allYears.map(y => y + '年'), 
+                totals: allTotals, 
+                growthRates, 
+                records: values.length,
+                currentYear: currentYear,
+                completeYears: completeYears,
+                max: Math.max(...completeTotals),
+                maxYear: completeYears[maxIndex],
+                min: Math.min(...completeTotals),
+                minYear: completeYears[minIndex]
+            };
         }
         
         function displayStats(stats) {
             const sum = stats.totals.reduce((a, b) => a + b, 0);
-            const avg = sum / stats.totals.length;
-            const max = Math.max(...stats.totals);
-            const min = Math.min(...stats.totals);
-            const maxIndex = stats.totals.indexOf(max);
-            const minIndex = stats.totals.indexOf(min);
+            const avg = stats.completeYears.length > 0 ? sum / stats.completeYears.length : 0;
             
             document.getElementById('stats-grid').innerHTML = `
                 <div class="stat-card">
                     <h3>📊 Total (All Years)</h3>
                     <div class="value">${formatNumber(sum)}</div>
-                    <div class="sub">${formatNumber(Math.round(avg))} / year avg</div>
+                    <div class="sub">${formatNumber(Math.round(avg))} / year avg (excl. ${stats.currentYear})</div>
                 </div>
                 <div class="stat-card">
                     <h3>📈 Peak Year</h3>
-                    <div class="value">${formatNumber(max)}</div>
-                    <div class="sub">${stats.years[maxIndex]}年</div>
+                    <div class="value">${formatNumber(stats.max)}</div>
+                    <div class="sub">${stats.maxYear}年</div>
                 </div>
                 <div class="stat-card">
                     <h3>📉 Lowest Year</h3>
-                    <div class="value">${formatNumber(min)}</div>
-                    <div class="sub">${stats.years[minIndex]}年</div>
+                    <div class="value">${formatNumber(stats.min)}</div>
+                    <div class="sub">${stats.minYear}年 (excl. ${stats.currentYear})</div>
                 </div>
                 <div class="stat-card">
-                    <h3>📅 Years</h3>
+                    <h3>📅 Data Range</h3>
                     <div class="value">${stats.years.length}</div>
-                    <div class="sub">${stats.records} months data</div>
+                    <div class="sub">${stats.records} months (${stats.completeYears.length} complete years)</div>
                 </div>
             `;
         }
