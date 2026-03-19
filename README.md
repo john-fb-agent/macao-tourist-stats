@@ -76,16 +76,30 @@ macao-tourist-stats/
 
 ## 🚀 本地運行 | Local Development
 
-### 1. 克隆倉庫
+### Option 1: Dev Container (Recommended)
+
+**GitHub Codespaces**:
+
+1. Go to repository
+2. Click **Code** → **Codespaces**
+3. Click **Create codespace on main**
+4. Server starts automatically
+
+**VS Code Dev Container**:
+
+1. Clone repository
+2. Open in VS Code
+3. Press `Ctrl+Shift+P` → **Dev Containers: Reopen in Container**
+4. Run `http-server -p 8000`
+
+See [`.devcontainer/README.md`](.devcontainer/README.md) for details.
+
+### Option 2: Direct Browser
 
 ```bash
 git clone https://github.com/john-fb-agent/macao-tourist-stats.git
 cd macao-tourist-stats
-```
 
-### 2. 直接在瀏覽器打開
-
-```bash
 # macOS
 open index.html
 
@@ -96,13 +110,16 @@ xdg-open index.html
 start index.html
 ```
 
-### 3. 或使用本地服務器
+### Option 3: Local Server
 
 ```bash
 # Python 3
 python -m http.server 8000
 
-# 訪問 http://localhost:8000
+# Node.js
+npx http-server -p 8000
+
+# Visit http://localhost:8000
 ```
 
 ---
