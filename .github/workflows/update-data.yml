@@ -1,0 +1,75 @@
+name: Update Tourist Data
+
+on:
+  schedule:
+    # Run every Monday at 00:00 UTC (8:00 AM Asia/Shanghai)
+    - cron: '0 0 * * 1'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Fetch tourist data
+        env:
+          MACAO_DATA_APPCODE: ${{ secrets.MACAO_DATA_APPCODE }}
+          MACAO_DATA_OUTPUT: data/data.json
+          MACAO_DATA_APP_JSON: data/app.json
+        run: |
+          echo "📊 Fetching latest tourist data..."
+          python3 scripts/fetch_data.py
+      
+      - name: Check for changes
+        id: git-check
+        run: |
+          git add data/
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "📊 No changes in data"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "📊 Data updated"
+          fi
+      
+      - name: Commit and push changes
+        if: steps.git-check.outputs.has_changes == 'true'
+        run: |
+          git commit -m "data: Auto-update tourist statistics $(date +%Y-%m-%d)
+
+          Automated weekly data update from Macau DSEC API.
+          
+          Files updated:
+          - data/data.json
+          - data/app.json
+          
+          [skip ci]"
+          git push
+          echo "✅ Changes pushed successfully"
+      
+      - name: Upload app.json as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-info
+          path: data/app.json
+          retention-days: 30
