@@ -178,6 +178,8 @@ npx http-server -p 8000
 | **JavaScript (ES6+)** | 數據處理和圖表生成 |
 | **Chart.js 4.4.0** | 交互式圖表庫 |
 | **GitHub Pages** | 靜態網站託管 |
+| **GitHub Actions** | 每週自動數據更新 |
+| **Python 3.11** | 數據獲取腳本 |
 | **DSEC API** | 數據來源 |
 
 ---
