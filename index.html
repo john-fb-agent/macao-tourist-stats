@@ -188,7 +188,19 @@
             displayStats(stats);
             createYearlyChart(stats);
             
-            document.getElementById('last-update').textContent = 'Last Updated: ' + new Date().toLocaleString();
+            // Fetch app.json for last update time
+            try {
+                const appResponse = await fetch('data/app.json');
+                if (appResponse.ok) {
+                    const appData = await appResponse.json();
+                    const lastRun = new Date(appData.lastRunLocal || appData.lastRun);
+                    document.getElementById('last-update').textContent = 'Last Updated: ' + lastRun.toLocaleString('zh-MO');
+                } else {
+                    document.getElementById('last-update').textContent = 'Last Updated: ' + new Date().toLocaleString('zh-MO');
+                }
+            } catch (e) {
+                document.getElementById('last-update').textContent = 'Last Updated: ' + new Date().toLocaleString('zh-MO');
+            }
         }
         
         window.addEventListener('load', init);

@@ -57,7 +57,7 @@ This project automatically fetches tourist arrival statistics from Macau Governm
 4. Fetch Data from data.gov.mo API
          │
          ▼
-5. Save to data/latest_data.json
+5. Save to data/data.json and data/app.json
          │
          ▼
 6. Commit & Push (if data changed)
@@ -82,8 +82,8 @@ This project automatically fetches tourist arrival statistics from Macau Governm
 - Authentication: `APPCODE` (stored in GitHub Secrets)
 
 **Output**:
-- `data/latest_data.json` - Raw API response
-- `data/statistics.json` - Calculated statistics
+- `data/data.json` - Raw API response
+- `data/app.json` - App metadata with last update timestamp
 
 **Error Handling**:
 - API unavailable → Generate sample data
@@ -105,7 +105,7 @@ This project automatically fetches tourist arrival statistics from Macau Governm
 2. **Bar Chart** - Visitors by region comparison
 3. **Area Chart** - Regional breakdown over time
 
-**Data Source**: `data/latest_data.json` (loaded via fetch API)
+**Data Source**: `data/data.json` (loaded via fetch API)
 
 ---
 
@@ -170,8 +170,8 @@ macao-tourist-stats/
 ├── scripts/
 │   └── fetch_data.py             # Data fetching script
 ├── data/
-│   ├── latest_data.json          # Latest API response
-│   └── statistics.json           # Calculated stats
+│   ├── data.json                 # Latest API response
+│   └── app.json                  # App metadata
 ├── docs/
 │   ├── DESIGN.md                 # This file
 │   └── CHANGELOG.md              # Version history

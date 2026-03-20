@@ -18,3 +18,25 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Temporary/work files (generated during development)
+*_COMMITS.txt
+COMMIT_*.txt
+GITLOG*.txt
+PUSH_*.txt
+VERIFICATION*.txt
+*.sh
+!push_and_verify.sh
+!do_push.sh
+github_*.json
+workspace_*.json
+verify_*.py
+get_commits.py
+commit_result.txt
+final_verification.txt
+push_log.txt
+status.txt
+test.txt
+CURRENT_MODEL.md
+MODEL_CHANGE.txt
+AUTH_REFRESH_NEEDED.md
