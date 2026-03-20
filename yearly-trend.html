@@ -46,6 +46,9 @@
             
             <div class="chart-card">
                 <h2>📊 Yearly Tourist Arrivals (2008-2026)</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 0.9em;">
+                    📌 <strong>Note:</strong> ${stats.currentYear} data is year-to-date (YTD) - only ${stats.currentMonth} months complete. Shown in <span style="color: #ff4757; font-weight: bold;">red</span>.
+                </p>
                 <div class="chart-container"><canvas id="yearlyChart"></canvas></div>
             </div>
             
@@ -81,12 +84,18 @@
         function calculateYearlyStats(data) {
             const values = data.values || [];
             const yearlyTotals = {};
+            const yearlyMonths = {};  // Track months per year
             const currentYear = new Date().getFullYear();
+            const currentMonth = new Date().getMonth() + 1;
             
             values.forEach(v => {
                 const year = v.periodString?.split('年')?.[0] || '';
+                const month = parseInt(v.periodString?.split('年')?.[1]?.replace('月', '') || 0);
+                
                 if (year && v.value) {
                     yearlyTotals[year] = (yearlyTotals[year] || 0) + parseInt(v.value);
+                    if (!yearlyMonths[year]) yearlyMonths[year] = [];
+                    yearlyMonths[year].push(month);
                 }
             });
             
@@ -111,14 +120,26 @@
                 }
             }
             
+            // Create labels with month indicator for current year
+            const labels = allYears.map(y => {
+                const yearNum = parseInt(y);
+                if (yearNum === currentYear) {
+                    const months = yearlyMonths[y]?.length || 0;
+                    return `${y}年 (${months}個月 YTD)`;
+                }
+                return y + '年';
+            });
+            
             return { 
                 years: allYears, 
-                labels: allYears.map(y => y + '年'), 
+                labels: labels, 
                 totals: allTotals, 
                 growthRates, 
                 records: values.length,
                 currentYear: currentYear,
+                currentMonth: currentMonth,
                 completeYears: completeYears,
+                yearlyMonths: yearlyMonths,
                 max: Math.max(...completeTotals),
                 maxYear: completeYears[maxIndex],
                 min: Math.min(...completeTotals),
@@ -129,6 +150,7 @@
         function displayStats(stats) {
             const sum = stats.totals.reduce((a, b) => a + b, 0);
             const avg = stats.completeYears.length > 0 ? sum / stats.completeYears.length : 0;
+            const currentYearMonths = stats.yearlyMonths[stats.currentYear]?.length || 0;
             
             document.getElementById('stats-grid').innerHTML = `
                 <div class="stat-card">
@@ -149,7 +171,7 @@
                 <div class="stat-card">
                     <h3>📅 Data Range</h3>
                     <div class="value">${stats.years.length}</div>
-                    <div class="sub">${stats.records} months (${stats.completeYears.length} complete years)</div>
+                    <div class="sub">${stats.records} months (${stats.completeYears.length} complete + ${currentYearMonths} months of ${stats.currentYear})</div>
                 </div>
             `;
         }
