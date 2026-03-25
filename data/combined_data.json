@@ -1,0 +1,24 @@
+{
+  "lastUpdated": "2026-03-25T07:56:52.291689+00:00",
+  "timezone": "Asia/Shanghai",
+  "indicators": {
+    "visitor": {
+      "name": "入境旅客",
+      "name_en": "Visitor Arrivals",
+      "unit": "人次",
+      "records": 218,
+      "minYear": "2008",
+      "maxYear": "2026",
+      "dataFile": "visitor_data.json"
+    },
+    "hotel": {
+      "name": "酒店業場所入住率",
+      "name_en": "Hotel Occupancy Rate",
+      "unit": "%",
+      "records": 349,
+      "minYear": "1997",
+      "maxYear": "2026",
+      "dataFile": "hotel_data.json"
+    }
+  }
+}

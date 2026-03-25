@@ -1,0 +1,1772 @@
+{
+  "requestId": "4ea2c883-a861-421d-8508-49266e48d395",
+  "success": true,
+  "errorType": null,
+  "errorMessage": null,
+  "value": {
+    "title": "酒店業場所入住率",
+    "unit": "%",
+    "minYear": "1997",
+    "maxYear": "2026",
+    "periodType": "月度",
+    "indicatorRemarks": null,
+    "values": [
+      {
+        "value": "54.6",
+        "periodString": "1997年1月",
+        "remarks": null
+      },
+      {
+        "value": "62.4",
+        "periodString": "1997年2月",
+        "remarks": null
+      },
+      {
+        "value": "59.2",
+        "periodString": "1997年3月",
+        "remarks": null
+      },
+      {
+        "value": "57.1",
+        "periodString": "1997年4月",
+        "remarks": null
+      },
+      {
+        "value": "50.8",
+        "periodString": "1997年5月",
+        "remarks": null
+      },
+      {
+        "value": "48",
+        "periodString": "1997年6月",
+        "remarks": null
+      },
+      {
+        "value": "40.1",
+        "periodString": "1997年7月",
+        "remarks": null
+      },
+      {
+        "value": "43.4",
+        "periodString": "1997年8月",
+        "remarks": null
+      },
+      {
+        "value": "42.3",
+        "periodString": "1997年9月",
+        "remarks": null
+      },
+      {
+        "value": "50.8",
+        "periodString": "1997年10月",
+        "remarks": null
+      },
+      {
+        "value": "48.6",
+        "periodString": "1997年11月",
+        "remarks": null
+      },
+      {
+        "value": "48.4",
+        "periodString": "1997年12月",
+        "remarks": null
+      },
+      {
+        "value": "49.7",
+        "periodString": "1998年1月",
+        "remarks": null
+      },
+      {
+        "value": "54.6",
+        "periodString": "1998年2月",
+        "remarks": null
+      },
+      {
+        "value": "52.3",
+        "periodString": "1998年3月",
+        "remarks": null
+      },
+      {
+        "value": "54.4",
+        "periodString": "1998年4月",
+        "remarks": null
+      },
+      {
+        "value": "47.1",
+        "periodString": "1998年5月",
+        "remarks": null
+      },
+      {
+        "value": "44.9",
+        "periodString": "1998年6月",
+        "remarks": null
+      },
+      {
+        "value": "52.9",
+        "periodString": "1998年7月",
+        "remarks": null
+      },
+      {
+        "value": "58.9",
+        "periodString": "1998年8月",
+        "remarks": null
+      },
+      {
+        "value": "47",
+        "periodString": "1998年9月",
+        "remarks": null
+      },
+      {
+        "value": "49.1",
+        "periodString": "1998年10月",
+        "remarks": null
+      },
+      {
+        "value": "51.6",
+        "periodString": "1998年11月",
+        "remarks": null
+      },
+      {
+        "value": "52.9",
+        "periodString": "1998年12月",
+        "remarks": null
+      },
+      {
+        "value": "47.8",
+        "periodString": "1999年1月",
+        "remarks": null
+      },
+      {
+        "value": "56.1",
+        "periodString": "1999年2月",
+        "remarks": null
+      },
+      {
+        "value": "50.1",
+        "periodString": "1999年3月",
+        "remarks": null
+      },
+      {
+        "value": "55.2",
+        "periodString": "1999年4月",
+        "remarks": null
+      },
+      {
+        "value": "51.1",
+        "periodString": "1999年5月",
+        "remarks": null
+      },
+      {
+        "value": "50",
+        "periodString": "1999年6月",
+        "remarks": null
+      },
+      {
+        "value": "57.7",
+        "periodString": "1999年7月",
+        "remarks": null
+      },
+      {
+        "value": "57.8",
+        "periodString": "1999年8月",
+        "remarks": null
+      },
+      {
+        "value": "48",
+        "periodString": "1999年9月",
+        "remarks": null
+      },
+      {
+        "value": "57.1",
+        "periodString": "1999年10月",
+        "remarks": null
+      },
+      {
+        "value": "60.5",
+        "periodString": "1999年11月",
+        "remarks": null
+      },
+      {
+        "value": "53.4",
+        "periodString": "1999年12月",
+        "remarks": null
+      },
+      {
+        "value": "49.3",
+        "periodString": "2000年1月",
+        "remarks": null
+      },
+      {
+        "value": "61",
+        "periodString": "2000年2月",
+        "remarks": null
+      },
+      {
+        "value": "53.6",
+        "periodString": "2000年3月",
+        "remarks": null
+      },
+      {
+        "value": "59.1",
+        "periodString": "2000年4月",
+        "remarks": null
+      },
+      {
+        "value": "59.3",
+        "periodString": "2000年5月",
+        "remarks": null
+      },
+      {
+        "value": "52.2",
+        "periodString": "2000年6月",
+        "remarks": null
+      },
+      {
+        "value": "60.5",
+        "periodString": "2000年7月",
+        "remarks": null
+      },
+      {
+        "value": "65.4",
+        "periodString": "2000年8月",
+        "remarks": null
+      },
+      {
+        "value": "54.7",
+        "periodString": "2000年9月",
+        "remarks": null
+      },
+      {
+        "value": "57.8",
+        "periodString": "2000年10月",
+        "remarks": null
+      },
+      {
+        "value": "58.8",
+        "periodString": "2000年11月",
+        "remarks": null
+      },
+      {
+        "value": "59.3",
+        "periodString": "2000年12月",
+        "remarks": null
+      },
+      {
+        "value": "56.5",
+        "periodString": "2001年1月",
+        "remarks": null
+      },
+      {
+        "value": "52.1",
+        "periodString": "2001年2月",
+        "remarks": null
+      },
+      {
+        "value": "57.9",
+        "periodString": "2001年3月",
+        "remarks": null
+      },
+      {
+        "value": "60.8",
+        "periodString": "2001年4月",
+        "remarks": null
+      },
+      {
+        "value": "57.8",
+        "periodString": "2001年5月",
+        "remarks": null
+      },
+      {
+        "value": "60.2",
+        "periodString": "2001年6月",
+        "remarks": null
+      },
+      {
+        "value": "63.9",
+        "periodString": "2001年7月",
+        "remarks": null
+      },
+      {
+        "value": "69.4",
+        "periodString": "2001年8月",
+        "remarks": null
+      },
+      {
+        "value": "56.2",
+        "periodString": "2001年9月",
+        "remarks": null
+      },
+      {
+        "value": "62",
+        "periodString": "2001年10月",
+        "remarks": null
+      },
+      {
+        "value": "63.3",
+        "periodString": "2001年11月",
+        "remarks": null
+      },
+      {
+        "value": "67.1",
+        "periodString": "2001年12月",
+        "remarks": null
+      },
+      {
+        "value": "57.4",
+        "periodString": "2002年1月",
+        "remarks": null
+      },
+      {
+        "value": "63.5",
+        "periodString": "2002年2月",
+        "remarks": null
+      },
+      {
+        "value": "65.3",
+        "periodString": "2002年3月",
+        "remarks": null
+      },
+      {
+        "value": "70.3",
+        "periodString": "2002年4月",
+        "remarks": null
+      },
+      {
+        "value": "68.5",
+        "periodString": "2002年5月",
+        "remarks": null
+      },
+      {
+        "value": "60.3",
+        "periodString": "2002年6月",
+        "remarks": null
+      },
+      {
+        "value": "69.3",
+        "periodString": "2002年7月",
+        "remarks": null
+      },
+      {
+        "value": "76.4",
+        "periodString": "2002年8月",
+        "remarks": null
+      },
+      {
+        "value": "63.1",
+        "periodString": "2002年9月",
+        "remarks": null
+      },
+      {
+        "value": "63.8",
+        "periodString": "2002年10月",
+        "remarks": null
+      },
+      {
+        "value": "73.6",
+        "periodString": "2002年11月",
+        "remarks": null
+      },
+      {
+        "value": "73.8",
+        "periodString": "2002年12月",
+        "remarks": null
+      },
+      {
+        "value": "60.7",
+        "periodString": "2003年1月",
+        "remarks": null
+      },
+      {
+        "value": "67.8",
+        "periodString": "2003年2月",
+        "remarks": null
+      },
+      {
+        "value": "67",
+        "periodString": "2003年3月",
+        "remarks": null
+      },
+      {
+        "value": "44.2",
+        "periodString": "2003年4月",
+        "remarks": null
+      },
+      {
+        "value": "32.7",
+        "periodString": "2003年5月",
+        "remarks": null
+      },
+      {
+        "value": "49.8",
+        "periodString": "2003年6月",
+        "remarks": null
+      },
+      {
+        "value": "66.9",
+        "periodString": "2003年7月",
+        "remarks": null
+      },
+      {
+        "value": "84.3",
+        "periodString": "2003年8月",
+        "remarks": null
+      },
+      {
+        "value": "68.2",
+        "periodString": "2003年9月",
+        "remarks": null
+      },
+      {
+        "value": "72.5",
+        "periodString": "2003年10月",
+        "remarks": null
+      },
+      {
+        "value": "79",
+        "periodString": "2003年11月",
+        "remarks": null
+      },
+      {
+        "value": "77.4",
+        "periodString": "2003年12月",
+        "remarks": null
+      },
+      {
+        "value": "66.8",
+        "periodString": "2004年1月",
+        "remarks": null
+      },
+      {
+        "value": "64.4",
+        "periodString": "2004年2月",
+        "remarks": null
+      },
+      {
+        "value": "78",
+        "periodString": "2004年3月",
+        "remarks": null
+      },
+      {
+        "value": "77",
+        "periodString": "2004年4月",
+        "remarks": null
+      },
+      {
+        "value": "71.1",
+        "periodString": "2004年5月",
+        "remarks": null
+      },
+      {
+        "value": "74.9",
+        "periodString": "2004年6月",
+        "remarks": null
+      },
+      {
+        "value": "82",
+        "periodString": "2004年7月",
+        "remarks": null
+      },
+      {
+        "value": "82.3",
+        "periodString": "2004年8月",
+        "remarks": null
+      },
+      {
+        "value": "71.2",
+        "periodString": "2004年9月",
+        "remarks": null
+      },
+      {
+        "value": "77.2",
+        "periodString": "2004年10月",
+        "remarks": null
+      },
+      {
+        "value": "82.4",
+        "periodString": "2004年11月",
+        "remarks": null
+      },
+      {
+        "value": "78.5",
+        "periodString": "2004年12月",
+        "remarks": null
+      },
+      {
+        "value": "66.9",
+        "periodString": "2005年1月",
+        "remarks": null
+      },
+      {
+        "value": "65.4",
+        "periodString": "2005年2月",
+        "remarks": null
+      },
+      {
+        "value": "64.8",
+        "periodString": "2005年3月",
+        "remarks": null
+      },
+      {
+        "value": "67",
+        "periodString": "2005年4月",
+        "remarks": null
+      },
+      {
+        "value": "67",
+        "periodString": "2005年5月",
+        "remarks": null
+      },
+      {
+        "value": "67.6",
+        "periodString": "2005年6月",
+        "remarks": null
+      },
+      {
+        "value": "74",
+        "periodString": "2005年7月",
+        "remarks": null
+      },
+      {
+        "value": "75.8",
+        "periodString": "2005年8月",
+        "remarks": null
+      },
+      {
+        "value": "67",
+        "periodString": "2005年9月",
+        "remarks": null
+      },
+      {
+        "value": "75.3",
+        "periodString": "2005年10月",
+        "remarks": null
+      },
+      {
+        "value": "82.6",
+        "periodString": "2005年11月",
+        "remarks": null
+      },
+      {
+        "value": "76.1",
+        "periodString": "2005年12月",
+        "remarks": null
+      },
+      {
+        "value": "64.5",
+        "periodString": "2006年1月",
+        "remarks": null
+      },
+      {
+        "value": "71.9",
+        "periodString": "2006年2月",
+        "remarks": null
+      },
+      {
+        "value": "75.1",
+        "periodString": "2006年3月",
+        "remarks": null
+      },
+      {
+        "value": "77.8",
+        "periodString": "2006年4月",
+        "remarks": null
+      },
+      {
+        "value": "65.4",
+        "periodString": "2006年5月",
+        "remarks": null
+      },
+      {
+        "value": "68",
+        "periodString": "2006年6月",
+        "remarks": null
+      },
+      {
+        "value": "72",
+        "periodString": "2006年7月",
+        "remarks": null
+      },
+      {
+        "value": "74.3",
+        "periodString": "2006年8月",
+        "remarks": null
+      },
+      {
+        "value": "67.2",
+        "periodString": "2006年9月",
+        "remarks": null
+      },
+      {
+        "value": "73.6",
+        "periodString": "2006年10月",
+        "remarks": null
+      },
+      {
+        "value": "77.6",
+        "periodString": "2006年11月",
+        "remarks": null
+      },
+      {
+        "value": "78.1",
+        "periodString": "2006年12月",
+        "remarks": null
+      },
+      {
+        "value": "71.7",
+        "periodString": "2007年1月",
+        "remarks": null
+      },
+      {
+        "value": "74.1",
+        "periodString": "2007年2月",
+        "remarks": null
+      },
+      {
+        "value": "76",
+        "periodString": "2007年3月",
+        "remarks": null
+      },
+      {
+        "value": "79.2",
+        "periodString": "2007年4月",
+        "remarks": null
+      },
+      {
+        "value": "72.3",
+        "periodString": "2007年5月",
+        "remarks": null
+      },
+      {
+        "value": "68.9",
+        "periodString": "2007年6月",
+        "remarks": null
+      },
+      {
+        "value": "77.7",
+        "periodString": "2007年7月",
+        "remarks": null
+      },
+      {
+        "value": "83.7",
+        "periodString": "2007年8月",
+        "remarks": null
+      },
+      {
+        "value": "71.6",
+        "periodString": "2007年9月",
+        "remarks": null
+      },
+      {
+        "value": "79.3",
+        "periodString": "2007年10月",
+        "remarks": null
+      },
+      {
+        "value": "85.8",
+        "periodString": "2007年11月",
+        "remarks": null
+      },
+      {
+        "value": "83",
+        "periodString": "2007年12月",
+        "remarks": null
+      },
+      {
+        "value": "72.7",
+        "periodString": "2008年1月",
+        "remarks": null
+      },
+      {
+        "value": "70.7",
+        "periodString": "2008年2月",
+        "remarks": null
+      },
+      {
+        "value": "75.5",
+        "periodString": "2008年3月",
+        "remarks": null
+      },
+      {
+        "value": "75.2",
+        "periodString": "2008年4月",
+        "remarks": null
+      },
+      {
+        "value": "72.7",
+        "periodString": "2008年5月",
+        "remarks": null
+      },
+      {
+        "value": "73.1",
+        "periodString": "2008年6月",
+        "remarks": null
+      },
+      {
+        "value": "78.7",
+        "periodString": "2008年7月",
+        "remarks": null
+      },
+      {
+        "value": "76.5",
+        "periodString": "2008年8月",
+        "remarks": null
+      },
+      {
+        "value": "66.6",
+        "periodString": "2008年9月",
+        "remarks": null
+      },
+      {
+        "value": "71.3",
+        "periodString": "2008年10月",
+        "remarks": null
+      },
+      {
+        "value": "79",
+        "periodString": "2008年11月",
+        "remarks": null
+      },
+      {
+        "value": "78.8",
+        "periodString": "2008年12月",
+        "remarks": null
+      },
+      {
+        "value": "65.5",
+        "periodString": "2009年1月",
+        "remarks": null
+      },
+      {
+        "value": "69.3",
+        "periodString": "2009年2月",
+        "remarks": null
+      },
+      {
+        "value": "72.6",
+        "periodString": "2009年3月",
+        "remarks": null
+      },
+      {
+        "value": "73.5",
+        "periodString": "2009年4月",
+        "remarks": null
+      },
+      {
+        "value": "59.3",
+        "periodString": "2009年5月",
+        "remarks": null
+      },
+      {
+        "value": "60.5",
+        "periodString": "2009年6月",
+        "remarks": null
+      },
+      {
+        "value": "67.7",
+        "periodString": "2009年7月",
+        "remarks": null
+      },
+      {
+        "value": "80.2",
+        "periodString": "2009年8月",
+        "remarks": null
+      },
+      {
+        "value": "72.1",
+        "periodString": "2009年9月",
+        "remarks": null
+      },
+      {
+        "value": "73.8",
+        "periodString": "2009年10月",
+        "remarks": null
+      },
+      {
+        "value": "78.2",
+        "periodString": "2009年11月",
+        "remarks": null
+      },
+      {
+        "value": "82.2",
+        "periodString": "2009年12月",
+        "remarks": null
+      },
+      {
+        "value": "81.6",
+        "periodString": "2010年1月",
+        "remarks": null
+      },
+      {
+        "value": "77.8",
+        "periodString": "2010年2月",
+        "remarks": null
+      },
+      {
+        "value": "77.9",
+        "periodString": "2010年3月",
+        "remarks": null
+      },
+      {
+        "value": "80.9",
+        "periodString": "2010年4月",
+        "remarks": null
+      },
+      {
+        "value": "77.9",
+        "periodString": "2010年5月",
+        "remarks": null
+      },
+      {
+        "value": "75.8",
+        "periodString": "2010年6月",
+        "remarks": null
+      },
+      {
+        "value": "80",
+        "periodString": "2010年7月",
+        "remarks": null
+      },
+      {
+        "value": "82.4",
+        "periodString": "2010年8月",
+        "remarks": null
+      },
+      {
+        "value": "74.1",
+        "periodString": "2010年9月",
+        "remarks": null
+      },
+      {
+        "value": "78.5",
+        "periodString": "2010年10月",
+        "remarks": null
+      },
+      {
+        "value": "82.8",
+        "periodString": "2010年11月",
+        "remarks": null
+      },
+      {
+        "value": "87.7",
+        "periodString": "2010年12月",
+        "remarks": null
+      },
+      {
+        "value": "79.5",
+        "periodString": "2011年1月",
+        "remarks": null
+      },
+      {
+        "value": "82.2",
+        "periodString": "2011年2月",
+        "remarks": null
+      },
+      {
+        "value": "81.4",
+        "periodString": "2011年3月",
+        "remarks": null
+      },
+      {
+        "value": "84.5",
+        "periodString": "2011年4月",
+        "remarks": null
+      },
+      {
+        "value": "82",
+        "periodString": "2011年5月",
+        "remarks": null
+      },
+      {
+        "value": "82.5",
+        "periodString": "2011年6月",
+        "remarks": null
+      },
+      {
+        "value": "88.2",
+        "periodString": "2011年7月",
+        "remarks": null
+      },
+      {
+        "value": "88.5",
+        "periodString": "2011年8月",
+        "remarks": null
+      },
+      {
+        "value": "79.8",
+        "periodString": "2011年9月",
+        "remarks": null
+      },
+      {
+        "value": "81.7",
+        "periodString": "2011年10月",
+        "remarks": null
+      },
+      {
+        "value": "88.5",
+        "periodString": "2011年11月",
+        "remarks": null
+      },
+      {
+        "value": "89.7",
+        "periodString": "2011年12月",
+        "remarks": null
+      },
+      {
+        "value": "79.6",
+        "periodString": "2012年1月",
+        "remarks": null
+      },
+      {
+        "value": "86.3",
+        "periodString": "2012年2月",
+        "remarks": null
+      },
+      {
+        "value": "85.4",
+        "periodString": "2012年3月",
+        "remarks": null
+      },
+      {
+        "value": "82.4",
+        "periodString": "2012年4月",
+        "remarks": null
+      },
+      {
+        "value": "78.6",
+        "periodString": "2012年5月",
+        "remarks": null
+      },
+      {
+        "value": "80.8",
+        "periodString": "2012年6月",
+        "remarks": null
+      },
+      {
+        "value": "85.6",
+        "periodString": "2012年7月",
+        "remarks": null
+      },
+      {
+        "value": "88.1",
+        "periodString": "2012年8月",
+        "remarks": null
+      },
+      {
+        "value": "80.9",
+        "periodString": "2012年9月",
+        "remarks": null
+      },
+      {
+        "value": "81.4",
+        "periodString": "2012年10月",
+        "remarks": null
+      },
+      {
+        "value": "87.2",
+        "periodString": "2012年11月",
+        "remarks": null
+      },
+      {
+        "value": "86.7",
+        "periodString": "2012年12月",
+        "remarks": null
+      },
+      {
+        "value": "83.5",
+        "periodString": "2013年1月",
+        "remarks": null
+      },
+      {
+        "value": "76.2",
+        "periodString": "2013年2月",
+        "remarks": null
+      },
+      {
+        "value": "79.2",
+        "periodString": "2013年3月",
+        "remarks": null
+      },
+      {
+        "value": "81.1",
+        "periodString": "2013年4月",
+        "remarks": null
+      },
+      {
+        "value": "78.2",
+        "periodString": "2013年5月",
+        "remarks": null
+      },
+      {
+        "value": "80.9",
+        "periodString": "2013年6月",
+        "remarks": null
+      },
+      {
+        "value": "84.4",
+        "periodString": "2013年7月",
+        "remarks": null
+      },
+      {
+        "value": "90.3",
+        "periodString": "2013年8月",
+        "remarks": null
+      },
+      {
+        "value": "82.7",
+        "periodString": "2013年9月",
+        "remarks": null
+      },
+      {
+        "value": "82.9",
+        "periodString": "2013年10月",
+        "remarks": null
+      },
+      {
+        "value": "87.9",
+        "periodString": "2013年11月",
+        "remarks": null
+      },
+      {
+        "value": "89.8",
+        "periodString": "2013年12月",
+        "remarks": null
+      },
+      {
+        "value": "80.9",
+        "periodString": "2014年1月",
+        "remarks": null
+      },
+      {
+        "value": "91.5",
+        "periodString": "2014年2月",
+        "remarks": null
+      },
+      {
+        "value": "88.2",
+        "periodString": "2014年3月",
+        "remarks": null
+      },
+      {
+        "value": "85.3",
+        "periodString": "2014年4月",
+        "remarks": null
+      },
+      {
+        "value": "85.5",
+        "periodString": "2014年5月",
+        "remarks": null
+      },
+      {
+        "value": "84.5",
+        "periodString": "2014年6月",
+        "remarks": null
+      },
+      {
+        "value": "86.6",
+        "periodString": "2014年7月",
+        "remarks": null
+      },
+      {
+        "value": "90",
+        "periodString": "2014年8月",
+        "remarks": null
+      },
+      {
+        "value": "84.6",
+        "periodString": "2014年9月",
+        "remarks": null
+      },
+      {
+        "value": "85.6",
+        "periodString": "2014年10月",
+        "remarks": null
+      },
+      {
+        "value": "90.3",
+        "periodString": "2014年11月",
+        "remarks": null
+      },
+      {
+        "value": "85.1",
+        "periodString": "2014年12月",
+        "remarks": null
+      },
+      {
+        "value": "80.5",
+        "periodString": "2015年1月",
+        "remarks": null
+      },
+      {
+        "value": "81.2",
+        "periodString": "2015年2月",
+        "remarks": null
+      },
+      {
+        "value": "78.2",
+        "periodString": "2015年3月",
+        "remarks": null
+      },
+      {
+        "value": "80.5",
+        "periodString": "2015年4月",
+        "remarks": null
+      },
+      {
+        "value": "80.7",
+        "periodString": "2015年5月",
+        "remarks": null
+      },
+      {
+        "value": "76.1",
+        "periodString": "2015年6月",
+        "remarks": null
+      },
+      {
+        "value": "83.6",
+        "periodString": "2015年7月",
+        "remarks": null
+      },
+      {
+        "value": "87",
+        "periodString": "2015年8月",
+        "remarks": null
+      },
+      {
+        "value": "79.2",
+        "periodString": "2015年9月",
+        "remarks": null
+      },
+      {
+        "value": "81.8",
+        "periodString": "2015年10月",
+        "remarks": null
+      },
+      {
+        "value": "85.2",
+        "periodString": "2015年11月",
+        "remarks": null
+      },
+      {
+        "value": "83.5",
+        "periodString": "2015年12月",
+        "remarks": null
+      },
+      {
+        "value": "77.2",
+        "periodString": "2016年1月",
+        "remarks": null
+      },
+      {
+        "value": "79.2",
+        "periodString": "2016年2月",
+        "remarks": null
+      },
+      {
+        "value": "77.2",
+        "periodString": "2016年3月",
+        "remarks": null
+      },
+      {
+        "value": "79.7",
+        "periodString": "2016年4月",
+        "remarks": null
+      },
+      {
+        "value": "79.9",
+        "periodString": "2016年5月",
+        "remarks": null
+      },
+      {
+        "value": "82.7",
+        "periodString": "2016年6月",
+        "remarks": null
+      },
+      {
+        "value": "87.5",
+        "periodString": "2016年7月",
+        "remarks": null
+      },
+      {
+        "value": "91",
+        "periodString": "2016年8月",
+        "remarks": null
+      },
+      {
+        "value": "82.7",
+        "periodString": "2016年9月",
+        "remarks": null
+      },
+      {
+        "value": "84.1",
+        "periodString": "2016年10月",
+        "remarks": null
+      },
+      {
+        "value": "87.1",
+        "periodString": "2016年11月",
+        "remarks": null
+      },
+      {
+        "value": "89.7",
+        "periodString": "2016年12月",
+        "remarks": null
+      },
+      {
+        "value": "81.6",
+        "periodString": "2017年1月",
+        "remarks": null
+      },
+      {
+        "value": "86.5",
+        "periodString": "2017年2月",
+        "remarks": null
+      },
+      {
+        "value": "82.7",
+        "periodString": "2017年3月",
+        "remarks": null
+      },
+      {
+        "value": "86.1",
+        "periodString": "2017年4月",
+        "remarks": null
+      },
+      {
+        "value": "85.2",
+        "periodString": "2017年5月",
+        "remarks": null
+      },
+      {
+        "value": "85.4",
+        "periodString": "2017年6月",
+        "remarks": null
+      },
+      {
+        "value": "90.8",
+        "periodString": "2017年7月",
+        "remarks": null
+      },
+      {
+        "value": "86.8",
+        "periodString": "2017年8月",
+        "remarks": null
+      },
+      {
+        "value": "86.7",
+        "periodString": "2017年9月",
+        "remarks": null
+      },
+      {
+        "value": "89.1",
+        "periodString": "2017年10月",
+        "remarks": null
+      },
+      {
+        "value": "91.4",
+        "periodString": "2017年11月",
+        "remarks": null
+      },
+      {
+        "value": "93.6",
+        "periodString": "2017年12月",
+        "remarks": null
+      },
+      {
+        "value": "91.5",
+        "periodString": "2018年1月",
+        "remarks": null
+      },
+      {
+        "value": "89.6",
+        "periodString": "2018年2月",
+        "remarks": null
+      },
+      {
+        "value": "89",
+        "periodString": "2018年3月",
+        "remarks": null
+      },
+      {
+        "value": "91.1",
+        "periodString": "2018年4月",
+        "remarks": null
+      },
+      {
+        "value": "89",
+        "periodString": "2018年5月",
+        "remarks": null
+      },
+      {
+        "value": "89.8",
+        "periodString": "2018年6月",
+        "remarks": null
+      },
+      {
+        "value": "91.9",
+        "periodString": "2018年7月",
+        "remarks": null
+      },
+      {
+        "value": "95.2",
+        "periodString": "2018年8月",
+        "remarks": null
+      },
+      {
+        "value": "86.7",
+        "periodString": "2018年9月",
+        "remarks": null
+      },
+      {
+        "value": "89.9",
+        "periodString": "2018年10月",
+        "remarks": null
+      },
+      {
+        "value": "94",
+        "periodString": "2018年11月",
+        "remarks": null
+      },
+      {
+        "value": "94.7",
+        "periodString": "2018年12月",
+        "remarks": null
+      },
+      {
+        "value": "93",
+        "periodString": "2019年1月",
+        "remarks": null
+      },
+      {
+        "value": "91.9",
+        "periodString": "2019年2月",
+        "remarks": null
+      },
+      {
+        "value": "90.8",
+        "periodString": "2019年3月",
+        "remarks": null
+      },
+      {
+        "value": "91.6",
+        "periodString": "2019年4月",
+        "remarks": null
+      },
+      {
+        "value": "90.1",
+        "periodString": "2019年5月",
+        "remarks": null
+      },
+      {
+        "value": "89.4",
+        "periodString": "2019年6月",
+        "remarks": null
+      },
+      {
+        "value": "93.1",
+        "periodString": "2019年7月",
+        "remarks": null
+      },
+      {
+        "value": "93",
+        "periodString": "2019年8月",
+        "remarks": null
+      },
+      {
+        "value": "84.6",
+        "periodString": "2019年9月",
+        "remarks": null
+      },
+      {
+        "value": "88.3",
+        "periodString": "2019年10月",
+        "remarks": null
+      },
+      {
+        "value": "91.9",
+        "periodString": "2019年11月",
+        "remarks": null
+      },
+      {
+        "value": "92",
+        "periodString": "2019年12月",
+        "remarks": null
+      },
+      {
+        "value": "81",
+        "periodString": "2020年1月",
+        "remarks": null
+      },
+      {
+        "value": "14.8",
+        "periodString": "2020年2月",
+        "remarks": null
+      },
+      {
+        "value": "23.2",
+        "periodString": "2020年3月",
+        "remarks": null
+      },
+      {
+        "value": "12.6",
+        "periodString": "2020年4月",
+        "remarks": null
+      },
+      {
+        "value": "11.8",
+        "periodString": "2020年5月",
+        "remarks": null
+      },
+      {
+        "value": "11.8",
+        "periodString": "2020年6月",
+        "remarks": null
+      },
+      {
+        "value": "12.1",
+        "periodString": "2020年7月",
+        "remarks": null
+      },
+      {
+        "value": "13.3",
+        "periodString": "2020年8月",
+        "remarks": null
+      },
+      {
+        "value": "17.1",
+        "periodString": "2020年9月",
+        "remarks": null
+      },
+      {
+        "value": "39.8",
+        "periodString": "2020年10月",
+        "remarks": null
+      },
+      {
+        "value": "44",
+        "periodString": "2020年11月",
+        "remarks": null
+      },
+      {
+        "value": "53.1",
+        "periodString": "2020年12月",
+        "remarks": null
+      },
+      {
+        "value": "40.3",
+        "periodString": "2021年1月",
+        "remarks": null
+      },
+      {
+        "value": "38.4",
+        "periodString": "2021年2月",
+        "remarks": null
+      },
+      {
+        "value": "55.2",
+        "periodString": "2021年3月",
+        "remarks": null
+      },
+      {
+        "value": "59",
+        "periodString": "2021年4月",
+        "remarks": null
+      },
+      {
+        "value": "62.1",
+        "periodString": "2021年5月",
+        "remarks": null
+      },
+      {
+        "value": "45.4",
+        "periodString": "2021年6月",
+        "remarks": null
+      },
+      {
+        "value": "63.7",
+        "periodString": "2021年7月",
+        "remarks": null
+      },
+      {
+        "value": "38.4",
+        "periodString": "2021年8月",
+        "remarks": null
+      },
+      {
+        "value": "49.5",
+        "periodString": "2021年9月",
+        "remarks": null
+      },
+      {
+        "value": "44.8",
+        "periodString": "2021年10月",
+        "remarks": null
+      },
+      {
+        "value": "46.5",
+        "periodString": "2021年11月",
+        "remarks": null
+      },
+      {
+        "value": "54.8",
+        "periodString": "2021年12月",
+        "remarks": null
+      },
+      {
+        "value": "43.9",
+        "periodString": "2022年1月",
+        "remarks": null
+      },
+      {
+        "value": "48.6",
+        "periodString": "2022年2月",
+        "remarks": null
+      },
+      {
+        "value": "30.7",
+        "periodString": "2022年3月",
+        "remarks": null
+      },
+      {
+        "value": "29.8",
+        "periodString": "2022年4月",
+        "remarks": null
+      },
+      {
+        "value": "34.3",
+        "periodString": "2022年5月",
+        "remarks": null
+      },
+      {
+        "value": "39.9",
+        "periodString": "2022年6月",
+        "remarks": null
+      },
+      {
+        "value": "38.8",
+        "periodString": "2022年7月",
+        "remarks": null
+      },
+      {
+        "value": "34.9",
+        "periodString": "2022年8月",
+        "remarks": null
+      },
+      {
+        "value": "37.5",
+        "periodString": "2022年9月",
+        "remarks": null
+      },
+      {
+        "value": "41.7",
+        "periodString": "2022年10月",
+        "remarks": null
+      },
+      {
+        "value": "38.6",
+        "periodString": "2022年11月",
+        "remarks": null
+      },
+      {
+        "value": "42.8",
+        "periodString": "2022年12月",
+        "remarks": null
+      },
+      {
+        "value": "71.4",
+        "periodString": "2023年1月",
+        "remarks": null
+      },
+      {
+        "value": "76.1",
+        "periodString": "2023年2月",
+        "remarks": null
+      },
+      {
+        "value": "77.1",
+        "periodString": "2023年3月",
+        "remarks": null
+      },
+      {
+        "value": "79.3",
+        "periodString": "2023年4月",
+        "remarks": null
+      },
+      {
+        "value": "78.7",
+        "periodString": "2023年5月",
+        "remarks": null
+      },
+      {
+        "value": "84.1",
+        "periodString": "2023年6月",
+        "remarks": null
+      },
+      {
+        "value": "89.4",
+        "periodString": "2023年7月",
+        "remarks": null
+      },
+      {
+        "value": "88.5",
+        "periodString": "2023年8月",
+        "remarks": null
+      },
+      {
+        "value": "78.3",
+        "periodString": "2023年9月",
+        "remarks": null
+      },
+      {
+        "value": "82.8",
+        "periodString": "2023年10月",
+        "remarks": null
+      },
+      {
+        "value": "83.1",
+        "periodString": "2023年11月",
+        "remarks": null
+      },
+      {
+        "value": "85.7",
+        "periodString": "2023年12月",
+        "remarks": null
+      },
+      {
+        "value": "85.9",
+        "periodString": "2024年1月",
+        "remarks": null
+      },
+      {
+        "value": "85.1",
+        "periodString": "2024年2月",
+        "remarks": null
+      },
+      {
+        "value": "83.7",
+        "periodString": "2024年3月",
+        "remarks": null
+      },
+      {
+        "value": "83.1",
+        "periodString": "2024年4月",
+        "remarks": null
+      },
+      {
+        "value": "83.3",
+        "periodString": "2024年5月",
+        "remarks": null
+      },
+      {
+        "value": "82.8",
+        "periodString": "2024年6月",
+        "remarks": null
+      },
+      {
+        "value": "89.1",
+        "periodString": "2024年7月",
+        "remarks": null
+      },
+      {
+        "value": "91.4",
+        "periodString": "2024年8月",
+        "remarks": null
+      },
+      {
+        "value": "84.7",
+        "periodString": "2024年9月",
+        "remarks": null
+      },
+      {
+        "value": "88.4",
+        "periodString": "2024年10月",
+        "remarks": null
+      },
+      {
+        "value": "89.5",
+        "periodString": "2024年11月",
+        "remarks": null
+      },
+      {
+        "value": "89.2",
+        "periodString": "2024年12月",
+        "remarks": null
+      },
+      {
+        "value": "90.9",
+        "periodString": "2025年1月",
+        "remarks": null
+      },
+      {
+        "value": "90.6",
+        "periodString": "2025年2月",
+        "remarks": null
+      },
+      {
+        "value": "89.1",
+        "periodString": "2025年3月",
+        "remarks": null
+      },
+      {
+        "value": "87.8",
+        "periodString": "2025年4月",
+        "remarks": null
+      },
+      {
+        "value": "88",
+        "periodString": "2025年5月",
+        "remarks": null
+      },
+      {
+        "value": "88.4",
+        "periodString": "2025年6月",
+        "remarks": null
+      },
+      {
+        "value": "91.1",
+        "periodString": "2025年7月",
+        "remarks": null
+      },
+      {
+        "value": "93.1",
+        "periodString": "2025年8月",
+        "remarks": null
+      },
+      {
+        "value": "84.4",
+        "periodString": "2025年9月",
+        "remarks": null
+      },
+      {
+        "value": "89.1",
+        "periodString": "2025年10月",
+        "remarks": null
+      },
+      {
+        "value": "90.3",
+        "periodString": "2025年11月",
+        "remarks": null
+      },
+      {
+        "value": "90.4",
+        "periodString": "2025年12月",
+        "remarks": null
+      },
+      {
+        "value": "91.6",
+        "periodString": "2026年1月",
+        "remarks": null
+      }
+    ]
+  },
+  "responseTime": "2026-03-25T15:56:52",
+  "_indicator": "hotel",
+  "_fetched_at": "2026-03-25T07:56:52.288143+00:00",
+  "_config": {
+    "endpoint": "https://dsec.apigateway.data.gov.mo/public/KeyIndicator/HotelEstablishmentOccupancyRate",
+    "name": "酒店業場所入住率",
+    "name_en": "Hotel Occupancy Rate",
+    "unit": "%",
+    "min_year": 1997,
+    "data_type": "float"
+  }
+}
