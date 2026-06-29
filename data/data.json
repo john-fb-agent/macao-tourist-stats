@@ -1,5 +1,5 @@
 {
-  "requestId": "21968c58-833d-40f4-8f23-5ac1231e0d6e",
+  "requestId": "b60db492-56e8-4d17-b908-1ab7ab8260c2",
   "success": true,
   "errorType": null,
   "errorMessage": null,
@@ -1110,8 +1110,13 @@
         "value": "3441396",
         "periodString": "2026年4月",
         "remarks": null
+      },
+      {
+        "value": "3487994",
+        "periodString": "2026年5月",
+        "remarks": null
       }
     ]
   },
-  "responseTime": "2026-06-22T13:20:54"
+  "responseTime": "2026-06-29T12:52:22"
 }
