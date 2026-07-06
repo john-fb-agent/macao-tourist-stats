@@ -1,8 +1,8 @@
 {
   "name": "Macau Tourist Statistics",
   "version": "1.5.0",
-  "lastRun": "2026-06-29T04:52:22.594582+00:00",
-  "lastRunLocal": "2026-06-29T04:52:22.594597",
+  "lastRun": "2026-07-06T04:20:39.663983+00:00",
+  "lastRunLocal": "2026-07-06T04:20:39.664001",
   "timezone": "Asia/Shanghai",
   "dataSource": "Macau DSEC API",
   "apiUrl": "https://dsec.apigateway.data.gov.mo/public/KeyIndicator/VisitorArrivals",
